@@ -10,4 +10,19 @@ datasource db {
 model Commendation {
   id String @id @default(uuid())
   message String
+  date String
+  recipient Member @relation(fields: [memberId], references: [id])
+  memberId String 
+  senderEmail String
+  recipientEmail String
+  notificationEmails String[]
+}
+
+model Member {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  team String
+  phone String?
+  commendations Commendation[]
 }
