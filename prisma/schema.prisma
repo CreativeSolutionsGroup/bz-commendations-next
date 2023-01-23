@@ -10,7 +10,7 @@ datasource db {
 model Commendation {
   id String @id @default(uuid())
   message String
-  date String
+  date DateTime @default(now())
   recipient Member @relation(fields: [memberId], references: [id])
   memberId String 
   senderEmail String
