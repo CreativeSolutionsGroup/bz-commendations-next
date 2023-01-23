@@ -2,7 +2,7 @@ import { Button, Select, TextField, Typography, createTheme, MenuItem } from "@m
 import { Box, Container } from "@mui/system"
 
 
-export const MainPageLayout = () => {
+export const CommendationForm = () => {
     createTheme({
         palette: {
             primary: {

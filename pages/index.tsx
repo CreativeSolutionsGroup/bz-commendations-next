@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { MainPageLayout } from '../components/MainPageLayout'
+import { Header } from "../components/Header"
+import { CommendationForm } from "../components/CommendationForm"
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        
+        <Header></Header>
+        <CommendationForm></CommendationForm>
       </main>
     </>
   )
