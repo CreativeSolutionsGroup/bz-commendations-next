@@ -5,12 +5,12 @@ export const CommendationForm = () => {
     return (
         <Container>
             <Box>
-                <Typography color="secondary">Create Commendation</Typography>
+                <Typography color="primary">Create Commendation</Typography>
                 <Select label="To">
                     <MenuItem>CE Members</MenuItem>
                 </Select>
                 <TextField label="Message" variant="filled" />
-                <Button variant="contained" disabled color="primary">SEND</Button>
+                <Button variant="contained" disabled color="secondary">SEND</Button>
             </Box>
         </Container>
     )

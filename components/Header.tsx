@@ -8,8 +8,8 @@ import bz from "../assets/BZ-letters.png"
 export const Header = () => {
   return (
     <Box>
-      <AppBar position="static">
-        <Toolbar color="secondary">
+      <AppBar position="static" color="primary">
+        <Toolbar>
           <Box>
             <Box width={50} component="img" alt="Bravo Flag" src={bravo.src}></Box>
             <Box width={50} component="img" alt="Zulu Flag" src={zulu.src}></Box>

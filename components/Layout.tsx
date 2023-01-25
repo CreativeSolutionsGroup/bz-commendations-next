@@ -1,21 +1,21 @@
-import { createTheme } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { PropsWithChildren } from "react"
 
 export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
-    createTheme({
+    const theme = createTheme({
         palette: {
             primary: {
-                main: '#f9a825'
+                main: '#005288'
             },
             secondary: {
-                main: '#0d47a1'
+                main: '#fdb913'
             }
         }
     });
     
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <main>{children}</main>
-        </>
+        </ThemeProvider>
     )
 }
