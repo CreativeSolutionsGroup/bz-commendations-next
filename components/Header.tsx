@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar color="secondary">
           <Box>
             <Box component="img" alt="Bravo Flag" src=""></Box>
             <Box component="img" alt="Zulu Flag" src=""></Box>
