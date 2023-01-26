@@ -22,7 +22,7 @@ model Member {
   id String @id @default(uuid())
   name String
   email String @unique
-  team Team @relation(fields: [teamId], references: [id])
+  team Team[]
   teamId String
   phone String?
   commendations Commendation[]
