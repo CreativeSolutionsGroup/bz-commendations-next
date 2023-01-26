@@ -8,7 +8,7 @@ import bz from "../assets/BZ-letters.png"
 export const Header = () => {
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Box>
             <Box width={50} component="img" alt="Bravo Flag" src={bravo.src}></Box>
