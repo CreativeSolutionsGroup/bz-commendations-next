@@ -13,3 +13,12 @@ export const createCommendation = async (message: string) => {
 export const readAllCommendations = async () => {
   return await prisma.commendation.findMany()
 }
+
+export const readAllMembers = async () => {
+  return await prisma.member.findMany({
+    select: {
+      id: true,
+      name: true
+    }
+  })
+}
