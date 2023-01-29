@@ -27,7 +27,7 @@ export const CommendationForm = () => {
         <Container>
             <Box>
                 {/*
-                <form action="api/commendation" method="POST">
+                <form action="api/commendation" method="post">
                     <Typography color="primary">Create Commendation</Typography>
                     <Select label="To" onChange={update_recipient}>
                         <MenuItem>CE Members</MenuItem>
@@ -40,8 +40,8 @@ export const CommendationForm = () => {
                     <label htmlFor="first">First Name</label>
                     <input type="text" id="first" name="first" required />
 
-                    <label htmlFor="last">Last Name</label>
-                    <input type="text" id="last" name="last" required />
+                    <label htmlFor="last">Message</label>
+                    <input type="text" id="message" name="message" required />
 
                     <button type="submit">Submit</button>
                 </form>
