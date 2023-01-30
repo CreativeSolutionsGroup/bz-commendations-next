@@ -11,7 +11,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
             <Box>
                 <form action="api/commendation" method="POST">
                     <Typography color="primary">Create Commendation</Typography>
-                    <Select label="To" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)}>
+                    <Select label="To" name="reciever" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData}>
                         {members.map((member: {id: string; name: string}) =>
                             <MenuItem value={member.id}>
                                 {member.name}
