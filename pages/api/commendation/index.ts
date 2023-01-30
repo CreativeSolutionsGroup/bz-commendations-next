@@ -9,19 +9,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
       
     case "POST": 
-      console.log('body: ', req.body);
-
-      if (!req.body.reciever || !req.body.msg) {
-        // Sends a HTTP bad request error code
-        return res.status(400).json({ data: 'Recipient or message not found' })
-      }
-
+      const sender = "";
+      const recipient = req.body.recipient as string;
       const msg = req.body.msg as string;
-      const reciever = req.body.recipient as string;
-      const commendation = await createCommendation(msg);
 
-      res.status(200).json({ data: `${reciever} ${msg}` })
-      res.json(commendation)
+      const commendation = await createCommendation(sender, recipient, msg);
+      res.redirect("/")
       break;
   }
 }

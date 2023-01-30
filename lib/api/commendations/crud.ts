@@ -2,11 +2,12 @@ import { Commendation, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const createCommendation = async (msg: string) => {
+export const createCommendation = async (sender: string, recipient: string, msg: string) => {
   return await prisma.commendation.create({
     data: {
-      id: "",
-      message: msg,
+      senderId: sender,
+      recipientId: recipient,
+      message: msg
     }
   });
 }

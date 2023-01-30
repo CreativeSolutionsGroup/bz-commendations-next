@@ -11,7 +11,7 @@ model Commendation {
   id                 String   @id @default(uuid())
   message            String
   date               DateTime @default(now())
-  notificationIds String[]
+  notificationEmails String[]
   recipientId        String
   senderId           String
   recipient          Member   @relation("recipient", fields: [recipientId], references: [id])
@@ -22,15 +22,16 @@ model Member {
   id            String         @id @default(uuid())
   name          String
   email         String         @unique
+  teamId        String
   phone         String?
   commendations Commendation[] @relation("recipient")
   commendments  Commendation[] @relation("sender")
-  team          Team[]         
+  team          Team[]         @relation("MemberToTeam")
 }
 
 model Team {
   id       String   @id @default(uuid())
   name     String
   imageURL String?
-  members  Member[] 
+  members  Member[] @relation("MemberToTeam")
 }
