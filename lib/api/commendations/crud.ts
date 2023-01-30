@@ -15,10 +15,5 @@ export const readAllCommendations = async () => {
 }
 
 export const readAllMembers = async () => {
-  return await prisma.member.findMany({
-    select: {
-      id: true,
-      name: true
-    }
-  })
+  return await prisma.member.findMany()
 }

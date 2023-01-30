@@ -1,13 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createCommendation, readAllCommendations, readAllMembers } from "../../../lib/api/commendations";
 
-export const getServerSideProps = async () => {
-  const members = await readAllMembers();
-  return {
-    members
-  }
-}
-
 export default async function post(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":

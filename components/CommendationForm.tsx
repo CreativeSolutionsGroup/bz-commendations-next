@@ -1,19 +1,18 @@
-import { Button, Select, TextField, Typography, MenuItem } from "@mui/material"
+import { Button, Select, TextField, Typography, MenuItem, SelectChangeEvent } from "@mui/material"
 import { Box, Container } from "@mui/system"
+import { Member } from "@prisma/client";
 import { useState } from "react"
-import { getServerSideProps } from "../pages/api/commendation"
 
-export const CommendationForm = async () => {
+export const CommendationForm = ({ members }: { members: Array<Member> }) => {
     const [data, setData] = useState("");
-    const members = await getServerSideProps();
     return (
         <Container>
             <Box>
                 <Typography color="primary">Create Commendation</Typography>
                 <Select label="To">
                     <MenuItem>
-                        <Select onInput={e => setData("hello")}>
-                            {members.members.map((member: {id: string; name: string}) =>
+                        <Select onChange={(e: SelectChangeEvent) => setData(e.target.value)}>
+                            {members.map((member: {id: string; name: string}) =>
                                 <option value={member.id}>
                                     {member.name}
                                 </option>
