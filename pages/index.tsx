@@ -1,8 +1,17 @@
 import Head from 'next/head'
 import { Header } from "../components/Header"
 import { CommendationForm } from "../components/CommendationForm"
+import { readAllMembers } from '../lib/api/commendations';
+import { Member } from '@prisma/client';
 
-export default function Home() {
+export const getServerSideProps = async () => {
+  const members = await readAllMembers();
+  return {
+    props: { members }
+  }
+}
+
+export default function Home({ members }: { members: Array<Member> }) {
   return (
     <>
       <Head>
@@ -13,7 +22,7 @@ export default function Home() {
       </Head>
       <main>
         <Header></Header>
-        <CommendationForm></CommendationForm>
+        <CommendationForm members={members}></CommendationForm>
       </main>
     </>
   )
