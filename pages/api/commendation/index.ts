@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createCommendation, readAllCommendations } from "../../../lib/api/commendations";
+import { createCommendation, readAllCommendations, readAllMembers } from "../../../lib/api/commendations";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {

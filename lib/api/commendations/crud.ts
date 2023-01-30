@@ -14,3 +14,7 @@ export const createCommendation = async (msg: string) => {
 export const readAllCommendations = async () => {
   return await prisma.commendation.findMany()
 }
+
+export const readAllMembers = async () => {
+  return await prisma.member.findMany()
+}
