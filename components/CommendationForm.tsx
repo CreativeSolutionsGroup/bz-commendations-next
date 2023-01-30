@@ -9,16 +9,12 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
         <Container>
             <Box>
                 <Typography color="primary">Create Commendation</Typography>
-                <Select label="To">
-                    <MenuItem>
-                        <Select onChange={(e: SelectChangeEvent) => setData(e.target.value)}>
-                            {members.map((member: {id: string; name: string}) =>
-                                <option value={member.id}>
-                                    {member.name}
-                                </option>
-                            )}
-                        </Select>
-                    </MenuItem>
+                <Select label="To" onChange={(e: SelectChangeEvent) => setData(e.target.value)}>
+                    {members.map((member: {id: string; name: string}) =>
+                        <MenuItem value={member.id}>
+                            {member.name}
+                        </MenuItem>
+                    )}
                 </Select>
                 <TextField label="Message" variant="filled" />
                 <Button variant="contained" disabled color="secondary">SEND</Button>

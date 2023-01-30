@@ -22,7 +22,6 @@ model Member {
   id            String         @id @default(uuid())
   name          String
   email         String         @unique
-  teamId        String
   phone         String?
   commendations Commendation[] @relation("recipient")
   commendments  Commendation[] @relation("sender")
