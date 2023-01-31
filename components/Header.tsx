@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Container, Stack } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 
 import bravo from "../assets/BZ-flag-red.png"
@@ -11,13 +11,15 @@ export const Header = () => {
       <AppBar position="static" color="primary">
         <Toolbar>
           <Box>
-            <Box width={50} component="img" alt="Bravo Flag" src={bravo.src}></Box>
-            <Box width={50} component="img" alt="Zulu Flag" src={zulu.src}></Box>
-            <Box width={50} ml={1} component="img" alt="BZ Logo" src={bz.src}></Box>
+            <Stack>
+              <Box width={35} component="img" alt="Bravo Flag" src={bravo.src} mb={0.5}></Box>
+              <Box width={35} component="img" alt="Zulu Flag" src={zulu.src}></Box>
+            </Stack>
           </Box>
-          <Typography>Commendations</Typography>
+          <Box width={50} mx={1.5} component="img" alt="BZ Logo" src={bz.src}></Box>
+          <Typography ml={0.5} fontFamily={"fantasy"} fontSize={25}>COMMENDATIONS</Typography>
           <IconButton></IconButton>
-          <Avatar></Avatar>
+          <Avatar sx={{ml: 140}}></Avatar>
         </Toolbar>
       </AppBar>
     </Box>
