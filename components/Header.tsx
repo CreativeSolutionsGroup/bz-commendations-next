@@ -15,12 +15,17 @@ export const Header = () => {
           <Box width={35} component="img" alt="Zulu Flag" src={zulu.src}></Box>
         </Stack>
         <Box width={50} mx={1.5} component="img" alt="BZ Logo" src={bz.src}></Box>
-        <Typography ml={0.5} fontFamily={"fantasy"} fontSize={25}>COMMENDATIONS</Typography>
-        <IconButton>
-          <ChatBubbleIcon color={"secondary"} sx={{ml: 138}}></ChatBubbleIcon>
-        </IconButton>
-        <Avatar sx={{ml: 0.5}}></Avatar>
+        <Typography ml={0.5} fontFamily="fantasy" fontSize={25}>COMMENDATIONS</Typography>
+          <IconButton>
+            <ChatBubbleIcon color="secondary" sx={{ ml: 138 }}></ChatBubbleIcon>
+          </IconButton>
+          <Avatar sx={{ml: 0.5}}></Avatar>
       </Toolbar>
     </AppBar>
   )
 }
+
+// FIXME: 
+// - align-content right rather than use ml (margin-left)
+// - add imageURL for logged-in member (avatar)
+// - remove spacing around App/Toolbar
