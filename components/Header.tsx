@@ -4,7 +4,7 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
 import bravo from "../assets/BZ-flag-red.png"
 import zulu from "../assets/BZ-flag.png"
-import bz from "../assets/BZ-letters.png"
+import bz from "../assets/BZ-letters-solid.png"
 
 export const Header = () => {
   return (
