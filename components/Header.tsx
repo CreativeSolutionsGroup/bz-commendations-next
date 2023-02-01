@@ -5,27 +5,32 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 import bravo from "../assets/BZ-flag-red.png"
 import zulu from "../assets/BZ-flag.png"
 import bz from "../assets/BZ-letters.png"
+import Image from "next/image"
 
 export const Header = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Stack>
-          <Box width={35} component="img" alt="Bravo Flag" src={bravo.src} mb={0.5}></Box>
-          <Box width={35} component="img" alt="Zulu Flag" src={zulu.src}></Box>
-        </Stack>
-        <Box width={50} mx={1.5} component="img" alt="BZ Logo" src={bz.src}></Box>
+        <Box><Image width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
+        <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
+        <Box ml={1.5}><Image width={50} height={35} alt="BZ Logo" src={bz.src} /></Box>
         <Typography ml={0.5} fontFamily="fantasy" fontSize={25}>COMMENDATIONS</Typography>
+
+        <Box ml="auto" display="flex">
+
           <IconButton>
-            <ChatBubbleIcon color="secondary" sx={{ ml: 138 }}></ChatBubbleIcon>
+            <ChatBubbleIcon color="secondary" />
           </IconButton>
-          <Avatar sx={{ml: 0.5}}></Avatar>
+          <Avatar sx={{ ml: 0.5 }}></Avatar>
+
+        </Box>
       </Toolbar>
+
     </AppBar>
   )
 }
 
-// FIXME: 
+// FIXME:
 // - align-content right rather than use ml (margin-left)
 // - add imageURL for logged-in member (avatar)
 // - remove spacing around App/Toolbar
