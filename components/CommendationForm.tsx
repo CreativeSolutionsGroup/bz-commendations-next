@@ -15,8 +15,8 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                     <FormControl>
                         <InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
-                            {members.map((member: {id: string; name: string }) =>
-                                <MenuItem value={member.id}>
+                            {members.map((member: {id: string; name: string }, i) =>
+                                <MenuItem key={i} value={member.id}>
                                     <Box sx={{ display: "flex", flexDirection: "row" }}>
                                         <Avatar>{}</Avatar>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
