@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createCommendation, readAllCommendations, readAllMembers } from "../../../lib/api/commendations";
+import { getServerSession } from "next-auth";
+import { createCommendation, emailToId, readAllCommendations, readAllMembers, updateMemberImageURL } from "../../../lib/api/commendations";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -9,12 +11,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
       
     case "POST": 
-      const sender = "";
+      const session = await getServerSession(req, res, authOptions);
+      const sender = await emailToId((session?.user?.email) as string);
       const recipient = req.body.recipient as string;
       const msg = req.body.msg as string;
 
-      const commendation = await createCommendation(sender, recipient, msg);
-      res.redirect("/")
+      if (sender == null) {
+        console.log("Error: Bad email");
+        res.redirect("/");
+      }
+
+      const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
+      const commendation = await createCommendation(sender as string, recipient, msg);
+      res.redirect("/");
       break;
   }
 }
