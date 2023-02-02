@@ -1,10 +1,13 @@
 import Head from 'next/head'
-import { Header } from "../components/Header"
+import { getServerSession } from 'next-auth';
 import { CommendationForm } from "../components/CommendationForm"
 import { readAllMembers } from '../lib/api/commendations';
-import { Member } from '@prisma/client';
+import { Member, prisma } from '@prisma/client';
+import { GetServerSideProps } from 'next';
+import { ServerResponse, IncomingMessage } from 'http';
+import { authOptions } from './api/auth/[...nextauth]'
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const members = await readAllMembers();
   return {
     props: { members }
@@ -21,9 +24,8 @@ export default function Home({ members }: { members: Array<Member> }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header></Header>
-        <CommendationForm members={members}></CommendationForm>
+        <CommendationForm members={members} />
       </main>
     </>
   )
-}
+  }
