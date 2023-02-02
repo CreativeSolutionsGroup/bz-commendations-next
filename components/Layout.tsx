@@ -10,7 +10,12 @@ export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
             secondary: {
                 main: '#fdb913'
             }
+        },
+        /*
+        typography: {
+            fontFamily: "Raleway"
         }
+        */
     });
     
     return (
