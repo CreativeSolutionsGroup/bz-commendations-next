@@ -3,6 +3,7 @@ import { Box } from "@mui/system"
 import React, { useState } from "react"
 import { Member } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
+import GroupsIcon from '@mui/icons-material/Groups';
 
 export const CommendationForm = ({ members }: { members: Array<Member> }) => {
     const [memberData, setToMember] = useState("");
@@ -27,12 +28,14 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                         </Select>
                     </FormControl>
                     <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
-                    <Button variant="contained" color="secondary" type="submit">
-                        <Typography mr={0.5} mt={0.25} fontFamily="fantasy" fontSize={18}>SEND</Typography>
-                        <SendIcon fontSize="small"></SendIcon>
+                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{fontFamily: "fantasy", fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
+                        Send
                     </Button>
                 </Stack>
             </form>
+            <Button variant="contained" color="secondary" endIcon={<GroupsIcon />} sx={{fontFamily: "fantasy", mt: 1}}>
+                Switch to Team Commendation
+            </Button>
         </Paper>
     )
 }
