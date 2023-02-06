@@ -1,4 +1,4 @@
-import { Button, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper, Autocomplete } from "@mui/material"
+import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper, Autocomplete } from "@mui/material"
 import { Box } from "@mui/system"
 import React, { useState } from "react"
 import { Member } from "@prisma/client";
@@ -33,9 +33,9 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                     </Button>
                 </Stack>
             </form>
-            <Button variant="contained" color="secondary" endIcon={<GroupsIcon />} sx={{fontFamily: "fantasy", mt: 1}}>
-                Switch to Team Commendation
-            </Button>
+            <Fab color="secondary" aria-label="teams" sx={{position: "absolute", bottom: 16, right: 16}}>
+                <GroupsIcon />
+            </Fab>
         </Paper>
     )
 }
