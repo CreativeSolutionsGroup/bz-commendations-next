@@ -8,30 +8,30 @@ datasource db {
 }
 
 model Commendation {
-  id                 String   @id @default(uuid())
-  message            String
-  date               DateTime @default(now())
-  notificationEmails String[]
-  recipientId        String
-  senderId           String
-  recipient          Member   @relation("recipient", fields: [recipientId], references: [id])
-  sender             Member   @relation("sender", fields: [senderId], references: [id])
+  id                                      String   @id
+  message                                 String
+  date                                    DateTime @default(now())
+  notificationEmails                      String[]
+  recipientId                             String
+  senderId                                String
+  Member_Commendation_recipientIdToMember Member   @relation("Commendation_recipientIdToMember", fields: [recipientId], references: [id])
+  Member_Commendation_senderIdToMember    Member   @relation("Commendation_senderIdToMember", fields: [senderId], references: [id])
 }
 
 model Member {
-  id            String         @id @default(uuid())
-  name          String
-  email         String         @unique
-  phone         String?
-  imageURL      String?
-  commendations Commendation[] @relation("recipient")
-  commendments  Commendation[] @relation("sender")
-  team          Team[]         @relation("MemberToTeam")
+  id                                            String         @id
+  name                                          String
+  email                                         String         @unique
+  phone                                         String?
+  imageURL                                      String?
+  Commendation_Commendation_recipientIdToMember Commendation[] @relation("Commendation_recipientIdToMember")
+  Commendation_Commendation_senderIdToMember    Commendation[] @relation("Commendation_senderIdToMember")
+  Team                                          Team[]
 }
 
 model Team {
-  id       String   @id @default(uuid())
+  id       String   @id
   name     String
   imageURL String?
-  members  Member[] @relation("MemberToTeam")
+  Member   Member[]
 }
