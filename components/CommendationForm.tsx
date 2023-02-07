@@ -21,7 +21,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                                     <Box sx={{ display: "flex", flexDirection: "row" }} width={"100%"}>
                                         <Avatar>{}</Avatar>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
-                                        <Box flexGrow={10}></Box>
+                                        <Box flexGrow={1}></Box>
                                         <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right">CE Team</Typography>
                                     </Box>
                                 </MenuItem>
