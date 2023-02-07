@@ -3,8 +3,6 @@ import { CommendationForm } from "../components/CommendationForm"
 import { readAllMembers } from '../lib/api/commendations';
 import { Member } from '@prisma/client';
 import { GetServerSideProps } from 'next';
-import { Raleway } from '@next/font/google';
-
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const members = await readAllMembers();

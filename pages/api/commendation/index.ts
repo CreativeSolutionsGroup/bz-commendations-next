@@ -23,6 +23,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (sender == null) {
         console.log("Error: Bad email");
         res.redirect("/");
+        return
+      }
+
+      if (req.body.recipient == null || req.body.msg == null) {
+        console.error("Error: No recipient or no message. ")
+        res.redirect("/")
+        return
       }
 
       const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
