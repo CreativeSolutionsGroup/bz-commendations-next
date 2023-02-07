@@ -9,7 +9,7 @@ import { Raleway } from "@next/font/google";
 const raleway = Raleway({ weight: "900" });
 
 export const CommendationForm = ({ members }: { members: Array<Member> }) => {
-    const [sending, setSending] = useState(false);   
+    const [sending, setSending] = useState(false);
     const [memberData, setToMember] = useState("");
 
     return (
@@ -17,7 +17,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
             <form onSubmit={() => setSending(true)} action="api/commendation" method="POST">
                 <Stack spacing={1}>
                     <Typography color="primary" className={raleway.className} fontSize={25}  fontWeight={900}>Create Commendation</Typography>
-                    <FormControl>
+                    <FormControl required>
                         <InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
                             {members.map((member: {id: string; name: string }, i) =>
@@ -32,7 +32,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                             )}
                         </Select>
                     </FormControl>
-                    <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
+                    <TextField required label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
                     <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
                         Send
                     </Button>
