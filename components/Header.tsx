@@ -4,15 +4,18 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
 import bravo from "../assets/BZ-flag-red.png"
 import zulu from "../assets/BZ-flag.png"
-import bz from "../assets/BZ-letters.png"
+import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 export const Header = () => {
+  const { data: session } = useSession()
+
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Link href={"/"} style={{display: "flex", flexDirection: "row", textDecoration: "none", color: "white"}}>
+        <Link href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
           <Stack>
             <Box><Image width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
             <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
@@ -26,7 +29,7 @@ export const Header = () => {
           <IconButton>
             <ChatBubbleIcon color="secondary" />
           </IconButton>
-          <Avatar sx={{ ml: 0.5 }}></Avatar>
+          {session?.user?.image && <Avatar src={session?.user.image} sx={{ ml: 0.5 }}></Avatar>}
 
         </Box>
       </Toolbar>
