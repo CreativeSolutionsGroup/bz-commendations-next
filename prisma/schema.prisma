@@ -10,7 +10,7 @@ datasource db {
 model Commendation {
   id                 String   @id @default(uuid())
   message            String
-  date               DateTime @default(now())
+  createdAt          DateTime @default(now())
   notificationEmails String[]
   recipientId        String
   senderId           String
@@ -19,14 +19,14 @@ model Commendation {
 }
 
 model Member {
-  id            String         @id @default(uuid())
-  name          String
-  email         String         @unique
-  phone         String?
-  imageURL      String?
-  commendations Commendation[] @relation("recipient")
-  commendments  Commendation[] @relation("sender")
-  team          Team[]         @relation("MemberToTeam")
+  id                String         @id @default(uuid())
+  name              String
+  email             String         @unique
+  phone             String?
+  imageURL          String?
+  commendations     Commendation[] @relation("recipient")
+  sentCommendations Commendation[] @relation("sender")
+  team              Team[]         @relation("MemberToTeam")
 }
 
 model Team {

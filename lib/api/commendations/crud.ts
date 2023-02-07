@@ -9,7 +9,7 @@ export const emailToId = async (sender: string) => {
     return;
   }
 
-  const { id } = member
+  const { id } = member;
 
   return id as string
 }
@@ -17,8 +17,16 @@ export const emailToId = async (sender: string) => {
 export const createCommendation = async (sender: string, recipient: string, msg: string) => {
   return await prisma.commendation.create({
     data: {
-      senderId: sender,
-      recipientId: recipient,
+      sender: {
+        connect: {
+          id: sender
+        }
+      },
+      recipient: {
+        connect: {
+          id: recipient
+        }
+      },
       message: msg
     }
   });
