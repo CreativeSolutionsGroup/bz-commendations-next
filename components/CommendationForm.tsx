@@ -41,7 +41,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
 }
 
 // FIXME:
-// - tranform Select to AutoComplete?
+// - tranform Select to AutoComplete
 // - right-align CE member teams
 // - add avatar images {member.imageURL}
-// - disable button (funtionality: neither TextField nor Select can be null)
+// - disable button (funtionality: neither TextField nor Select can be null)?

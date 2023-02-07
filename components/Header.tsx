@@ -16,7 +16,7 @@ export const Header = () => {
           <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
         </Stack>
         <Box ml={1.5}><Image width={50} height={35} alt="BZ Logo" src={bz.src} /></Box>
-        <Typography ml={0.5} fontFamily="fantasy" fontSize={25}>COMMENDATIONS</Typography>
+        <Typography ml={1.5} fontFamily="fantasy" fontSize={25}>COMMENDATIONS</Typography>
 
         <Box ml="auto" display="flex">
 
@@ -35,7 +35,6 @@ export const Header = () => {
 }
 
 // FIXME:
-// - align-content right rather than use ml (margin-left)
+// - align-content right rather than use ml (margin-left)??
 // - add imageURL for logged-in member (avatar)
-// - remove spacing around App/Toolbar
 // - hovering on ChatBubble should read MyCommendations
