@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Container, Stack, Paper } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Container, Stack, Paper, Link } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
@@ -24,7 +24,9 @@ export const Header = () => {
         <Box ml="auto" display="flex">
 
           <IconButton>
-            <ChatBubbleIcon color="secondary" />
+            <Link href="/me">
+              <ChatBubbleIcon color="secondary" />
+            </Link>
           </IconButton>
           <Avatar sx={{ ml: 0.5 }}></Avatar>
 
@@ -36,6 +38,6 @@ export const Header = () => {
 }
 
 // FIXME:
-// - align-content right rather than use ml (margin-left)
+// - align-content right rather than use ml (margin-left)??
 // - add imageURL for logged-in member (avatar)
-// - remove spacing around App/Toolbar
+// - hovering on ChatBubble should read MyCommendations
