@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Commendation {
-  id                 String   @id
+  id                 String   @id @default(uuid())
   message            String
   createdAt          DateTime @default(now())
   notificationEmails String[]
@@ -19,7 +19,7 @@ model Commendation {
 }
 
 model Member {
-  id                String         @id
+  id                String         @id @default(uuid())
   name              String
   email             String         @unique
   phone             String?
@@ -30,7 +30,7 @@ model Member {
 }
 
 model Team {
-  id       String   @id
+  id       String   @id @default(uuid())
   name     String
   imageURL String?
   members  Member[] @relation("MemberToTeam")
