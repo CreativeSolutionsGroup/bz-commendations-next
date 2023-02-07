@@ -12,11 +12,6 @@ export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
                 main: '#fdb913'
             }
         },
-        /*
-        typography: {
-            fontFamily: "Raleway"
-        }
-        */
     });
     
     return (
