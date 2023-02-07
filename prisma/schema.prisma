@@ -19,14 +19,14 @@ model Commendation {
 }
 
 model Member {
-  id       String  @id
-  name     String
-  email    String  @unique
-  phone    String?
-  imageURL String?
-  commendations Commendation[] @relation("recipient")
-  sentCommendations  Commendation[] @relation("sender")
-  team          Team[]         @relation("MemberToTeam")
+  id                String         @id
+  name              String
+  email             String         @unique
+  phone             String?
+  imageURL          String?
+  commendations     Commendation[] @relation("recipient")
+  sentCommendations Commendation[] @relation("sender")
+  team              Team[]         @relation("MemberToTeam")
 }
 
 model Team {
