@@ -18,10 +18,11 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
                             {members.map((member: {id: string; name: string }, i) =>
                                 <MenuItem key={i} value={member.id}>
-                                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                                    <Box sx={{ display: "flex", flexDirection: "row" }} width={"100%"}>
                                         <Avatar>{}</Avatar>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
-                                        <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText">CE Team</Typography>
+                                        <Box flexGrow={10}></Box>
+                                        <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right">CE Team</Typography>
                                     </Box>
                                 </MenuItem>
                             )}
