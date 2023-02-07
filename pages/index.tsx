@@ -1,8 +1,7 @@
 import Head from 'next/head'
-import { getServerSession } from 'next-auth';
 import { CommendationForm } from "../components/CommendationForm"
 import { readAllMembers } from '../lib/api/commendations';
-import { Member, prisma } from '@prisma/client';
+import { Member } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
