@@ -10,7 +10,7 @@ datasource db {
 model Commendation {
   id                 String   @id @default(uuid())
   message            String
-  date               DateTime @default(now())
+  createdAt          DateTime @default(now())
   notificationEmails String[]
   recipientId        String
   senderId           String
