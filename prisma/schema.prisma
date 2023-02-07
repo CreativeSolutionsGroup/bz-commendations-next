@@ -14,6 +14,8 @@ model Commendation {
   notificationEmails String[]
   recipientId        String
   senderId           String
+  recipient          Member   @relation("recipient", fields: [recipientId], references: [id])
+  sender             Member   @relation("sender", fields: [senderId], references: [id])
 }
 
 model Member {
@@ -22,12 +24,14 @@ model Member {
   email    String  @unique
   phone    String?
   imageURL String?
-  team     Team[]
+  commendations Commendation[] @relation("recipient")
+  sentCommendations  Commendation[] @relation("sender")
+  team          Team[]         @relation("MemberToTeam")
 }
 
 model Team {
   id       String   @id
   name     String
   imageURL String?
-  member   Member[]
+  members  Member[] @relation("MemberToTeam")
 }
