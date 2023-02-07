@@ -8,6 +8,9 @@ import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
+import { Raleway } from "@next/font/google"
+
+const raleway = Raleway({ weight: "900" });
 
 export const Header = () => {
   const { data: session } = useSession()
@@ -21,7 +24,7 @@ export const Header = () => {
             <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
           </Stack>
           <Box ml={1.5} mt={0.6}><Image width={50} height={35} alt="BZ Logo" src={bz.src} /></Box>
-          <Typography ml={0.5} mt={0.6} fontFamily="fantasy" fontSize={25}>COMMENDATIONS</Typography>
+          <Typography className={raleway.className} ml={0.5} mt={0.6} fontSize={25} fontWeight={900}>COMMENDATIONS</Typography>
         </Link>
 
         <Box ml="auto" display="flex">

@@ -4,15 +4,18 @@ import React, { useState } from "react"
 import { Member } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
 import GroupsIcon from '@mui/icons-material/Groups';
+import { Raleway } from "@next/font/google";
+
+const raleway = Raleway({ weight: "900" });
 
 export const CommendationForm = ({ members }: { members: Array<Member> }) => {
     const [memberData, setToMember] = useState("");
 
     return (
-        <Paper sx={{ mt: 4, mx: 63, p: 2 }}>
+        <Paper sx={{ mt: 4, mx: "auto", maxWidth: "30rem", p: 2 }}>
             <form action="api/commendation" method="POST">
                 <Stack spacing={1}>
-                    <Typography color="primary" fontFamily="fantasy" fontSize={25}>Create Commendation</Typography>
+                    <Typography color="primary" className={raleway.className} fontSize={25}  fontWeight={900}>Create Commendation</Typography>
                     <FormControl>
                         <InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
@@ -29,7 +32,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                         </Select>
                     </FormControl>
                     <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
-                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{fontFamily: "fantasy", fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
+                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
                         Send
                     </Button>
                 </Stack>
