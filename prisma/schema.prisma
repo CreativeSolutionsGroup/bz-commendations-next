@@ -8,30 +8,26 @@ datasource db {
 }
 
 model Commendation {
-  id                                      String   @id
-  message                                 String
-  date                                    DateTime @default(now())
-  notificationEmails                      String[]
-  recipientId                             String
-  senderId                                String
-  Member_Commendation_recipientIdToMember Member   @relation("Commendation_recipientIdToMember", fields: [recipientId], references: [id])
-  Member_Commendation_senderIdToMember    Member   @relation("Commendation_senderIdToMember", fields: [senderId], references: [id])
+  id                 String   @id
+  message            String
+  date               DateTime @default(now())
+  notificationEmails String[]
+  recipientId        String
+  senderId           String
 }
 
 model Member {
-  id                                            String         @id
-  name                                          String
-  email                                         String         @unique
-  phone                                         String?
-  imageURL                                      String?
-  Commendation_Commendation_recipientIdToMember Commendation[] @relation("Commendation_recipientIdToMember")
-  Commendation_Commendation_senderIdToMember    Commendation[] @relation("Commendation_senderIdToMember")
-  Team                                          Team[]
+  id       String  @id
+  name     String
+  email    String  @unique
+  phone    String?
+  imageURL String?
+  team     Team[]
 }
 
 model Team {
   id       String   @id
   name     String
   imageURL String?
-  Member   Member[]
+  member   Member[]
 }
