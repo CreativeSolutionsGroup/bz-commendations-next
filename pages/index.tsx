@@ -1,11 +1,8 @@
 import Head from 'next/head'
-import { getServerSession } from 'next-auth';
 import { CommendationForm } from "../components/CommendationForm"
 import { readAllMembers } from '../lib/api/commendations';
-import { Member, prisma } from '@prisma/client';
+import { Member } from '@prisma/client';
 import { GetServerSideProps } from 'next';
-import { ServerResponse, IncomingMessage } from 'http';
-import { authOptions } from './api/auth/[...nextauth]'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const members = await readAllMembers();

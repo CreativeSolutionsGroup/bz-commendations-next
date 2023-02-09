@@ -4,16 +4,20 @@ import React, { useState } from "react"
 import { Member } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
 import GroupsIcon from '@mui/icons-material/Groups';
+import { Raleway } from "@next/font/google";
+
+const raleway = Raleway({ weight: "900" });
 
 export const CommendationForm = ({ members }: { members: Array<Member> }) => {
+    const [sending, setSending] = useState(false);
     const [memberData, setToMember] = useState("");
 
     return (
-        <Paper sx={{ mt: 4, mx: 63, p: 2 }}>
-            <form action="api/commendation" method="POST">
+        <Paper sx={{ mt: 4, mx: "auto", maxWidth: "30rem", p: 2 }}>
+            <form onSubmit={() => setSending(true)} action="api/commendation" method="POST">
                 <Stack spacing={1}>
-                    <Typography color="primary" fontFamily="fantasy" fontSize={25}>Create Commendation</Typography>
-                    <FormControl>
+                    <Typography color="primary" className={raleway.className} fontSize={25}  fontWeight={900}>Create Commendation</Typography>
+                    <FormControl required>
                         <InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
                             {members.map((member: {id: string; name: string }, i) =>
@@ -28,8 +32,8 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                             )}
                         </Select>
                     </FormControl>
-                    <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
-                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{fontFamily: "fantasy", fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
+                    <TextField required label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
+                    <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
                         Send
                     </Button>
                 </Stack>
@@ -42,7 +46,7 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
 }
 
 // FIXME:
-// - tranform Select to AutoComplete?
+// - tranform Select to AutoComplete
 // - right-align CE member teams
 // - add avatar images {member.imageURL}
-// - disable button (funtionality: neither TextField nor Select can be null)
+// - disable button (funtionality: neither TextField nor Select can be null)?
