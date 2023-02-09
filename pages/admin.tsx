@@ -9,7 +9,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import bz from "../assets/BZ-letters.png"
-import getTeams from "../lib/api/teams"
 
 export async function getServerSideProps() {
   const teams = await getTeams();

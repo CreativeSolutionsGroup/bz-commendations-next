@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 
 export const emailToId = async (sender: string) => {
   const member = await prisma.member.findFirst({ where: { email: sender } });
