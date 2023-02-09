@@ -4,17 +4,15 @@ import { IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import { Commendation, Member, PrismaClient, Team } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import bz from "../assets/BZ-letters.png"
-
-const prisma = new PrismaClient();
+import getTeams from "../lib/api/teams"
 
 export async function getServerSideProps() {
-  const teams = await prisma.team.findMany({ include: { members: { include: { commendations: { select: { id: true } }, sentCommendations: { select: { id: true } } } } }, orderBy: { name: "asc" } })
+  const teams = await getTeams();
   const commendationsSent = teams.reduce((previous, current) => {
     previous.push(
       current.members.reduce((previousCommendationsCount, currentMember) => {
