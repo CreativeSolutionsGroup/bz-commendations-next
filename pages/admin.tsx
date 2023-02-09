@@ -9,6 +9,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import bz from "../assets/BZ-letters.png"
+import { getTeams } from "../lib/api/teams";
 
 export async function getServerSideProps() {
   const teams = await getTeams();
@@ -79,22 +80,22 @@ export default function Admin({ teams, commendationsReceived, commendationsSent 
         <Box display={"flex"} flexDirection={"row"} flexWrap={"wrap"}>
           {
             teams.map((currentTeam, currentIndex) =>
-              <Paper sx={{ height: 320, flexGrow: 1, marginX: 4 }}>
-                <Box position={"relative"} height={"60%"}>
-                  <Image src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} fill style={{ objectFit: "contain", margin: 10 }} />
+              <Paper sx={{ height: 320, flexGrow: 1, marginX: 4, marginTop: 3, width: 250}}>
+                <Box position={"relative"} height={"60%"} marginRight={2.5}>
+                  <Image src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
                 </Box>
                 <Typography textAlign={"center"} fontSize={20} mt={3}>{currentTeam.name}</Typography>
                 <Box display={"flex"} mt={2}>
                   <Box flexGrow={1}></Box>
-                  <Box sx={{ borderRadius: 5, backgroundColor: "blue", paddingY: 1, paddingX: 2, marginRight: 1 }} display={"flex"}>
+                  <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginRight: 1, color: "white" }} display={"flex"}>
                     <Group></Group>
                     <Typography ml={1} textAlign={"right"}>{currentTeam.members.length}</Typography>
                   </Box>
-                  <Box sx={{ borderRadius: 5, backgroundColor: "blue", paddingY: 1, paddingX: 2 }} display={"flex"}>
+                  <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, color: "white" }} display={"flex"}>
                     <Send></Send>
                     <Typography ml={1} textAlign={"right"}>{commendationsSent[currentIndex]}</Typography>
                   </Box>
-                  <Box sx={{ borderRadius: 5, backgroundColor: "blue", paddingY: 1, paddingX: 2, marginLeft: 1 }} display={"flex"}>
+                  <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginLeft: 1, color: "white"}} display={"flex"}>
                     <MoveToInbox></MoveToInbox>
                     <Typography ml={1} textAlign={"right"}>{commendationsReceived[currentIndex]}</Typography>
                   </Box>
