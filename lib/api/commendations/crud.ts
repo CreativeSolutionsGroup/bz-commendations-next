@@ -1,5 +1,29 @@
 import { prisma } from "../db";
 
+export const idToEmail = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { email } = student;
+
+  return email as string;
+}
+
+export const idToName = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { name } = student;
+
+  return name as string;
+}
+
 export const emailToId = async (sender: string) => {
   const member = await prisma.member.findFirst({ where: { email: sender } });
 
