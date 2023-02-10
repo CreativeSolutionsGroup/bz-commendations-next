@@ -1,6 +1,28 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 
-const prisma = new PrismaClient();
+export const idToEmail = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { email } = student;
+
+  return email as string;
+}
+
+export const idToName = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { name } = student;
+
+  return name as string;
+}
 
 export const emailToId = async (sender: string) => {
   const member = await prisma.member.findFirst({ where: { email: sender } });

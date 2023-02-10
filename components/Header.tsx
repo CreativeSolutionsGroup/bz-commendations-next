@@ -10,7 +10,7 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
 
-const raleway = Raleway({ weight: "900" });
+const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
 export const Header = () => {
   const { data: session } = useSession()
