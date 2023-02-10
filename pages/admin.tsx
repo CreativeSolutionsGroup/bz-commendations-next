@@ -1,6 +1,6 @@
 import { ArrowRight, Group, MoveToInbox, Send, Settings } from "@mui/icons-material";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Card, IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
@@ -9,7 +9,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import bz from "../assets/BZ-letters.png"
-import { getTeams } from "../lib/api/teams";
+import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
 
 export async function getServerSideProps() {
   const teams = await getTeams();
@@ -30,10 +30,13 @@ export async function getServerSideProps() {
     return previousTeamCommendationCount;
   }, [] as number[])
 
-  return { props: { teams, commendationsReceived, commendationsSent } };
+  const lastMonthCommendations = await getLastMonthCommendations();
+  const thisMonthCommendations = await getThisMonthCommendations();
+
+  return { props: { teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations } };
 }
 
-export default function Admin({ teams, commendationsReceived, commendationsSent }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Admin({ teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
   const [viewMode, setViewMode] = useState("square");
   const [sortMode, setSortMode] = useState("atoz");
@@ -77,10 +80,10 @@ export default function Admin({ teams, commendationsReceived, commendationsSent 
             <Settings sx={{ marginY: "auto", marginX: 2 }}></Settings>
           </IconButton>
         </Box>
-        <Box display={"flex"} flexDirection={"row"} flexWrap={"wrap"}>
+        <Box display={"flex"} flexDirection={"row"} flexWrap={"wrap"} mb={10}>
           {
             teams.map((currentTeam, currentIndex) =>
-              <Paper sx={{ height: 320, flexGrow: 1, marginX: 4, marginTop: 3, width: 250}}>
+              <Card sx={{ height: 320, flexGrow: 1, marginX: 4, marginTop: 3, width: 250 }}>
                 <Box position={"relative"} height={"60%"} marginRight={2.5}>
                   <Image src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
                 </Box>
@@ -95,15 +98,19 @@ export default function Admin({ teams, commendationsReceived, commendationsSent 
                     <Send></Send>
                     <Typography ml={1} textAlign={"right"}>{commendationsSent[currentIndex]}</Typography>
                   </Box>
-                  <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginLeft: 1, color: "white"}} display={"flex"}>
+                  <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginLeft: 1, color: "white" }} display={"flex"}>
                     <MoveToInbox></MoveToInbox>
                     <Typography ml={1} textAlign={"right"}>{commendationsReceived[currentIndex]}</Typography>
                   </Box>
                   <Box flexGrow={1}></Box>
                 </Box>
-              </Paper>
+              </Card>
             )
           }
+        </Box>
+        <Box sx={{ position: "fixed", bottom: 0, display: "flex"}}>
+          <Card sx={{marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1}}>Commendations sent last month: {lastMonthCommendations}</Card>
+          <Card sx={{marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1}}>Commendations sent this month: {thisMonthCommendations}</Card>
         </Box>
       </main>
     </>
