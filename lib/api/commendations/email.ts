@@ -21,7 +21,7 @@ export const send_bz_email = async (senderEmail: string, recipientEmail: string,
                     <img width="500" height="100" src="http://drive.google.com/uc?export=view&id=1hReQjYUGqZXHK_WT1Q7TAhFbx4jVWa4z"/>
                     <div style="margin-top: 20px">
                         <div style="margin-left: 20px">
-                            <h2>${recipientName} received a new Commendation</h2>
+                            <h2>$You have received a new commendation!</h2>
                         </div>
                         <p style="margin-left: 40px; white-space: pre-line">${message}</p>
                         <div style="margin-left: 20px">
@@ -43,5 +43,4 @@ export const send_bz_email = async (senderEmail: string, recipientEmail: string,
 
     const command = new SendEmailCommand(params);
     const response = await client.send(command);
-    console.log(response);
 }
