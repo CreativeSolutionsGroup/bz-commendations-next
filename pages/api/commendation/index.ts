@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { createCommendation, emailToId, readAllCommendations, readAllMembers, updateMemberImageURL } from "../../../lib/api/commendations";
+import { createCommendation, emailToId, readAllCommendations, updateMemberImageURL } from "../../../lib/api/commendations";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

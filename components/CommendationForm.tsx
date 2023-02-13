@@ -1,4 +1,4 @@
-import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper, Autocomplete } from "@mui/material"
+import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper } from "@mui/material"
 import { Box } from "@mui/system"
 import React, { useState } from "react"
 import { Member } from "@prisma/client";
@@ -15,14 +15,14 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
         <Paper sx={{ mt: 4, mx: "auto", maxWidth: "30rem", p: 2 }}>
             <form action="api/commendation" method="POST">
                 <Stack spacing={1}>
-                    <Typography color="primary" className={raleway.className} fontSize={25}  fontWeight={900}>Create Commendation</Typography>
+                    <Typography color="primary" className={raleway.className} fontSize={25} fontWeight={900}>Create Commendation</Typography>
                     <FormControl>
                         <InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
-                            {members.map((member: {id: string; name: string }, i) =>
+                            {members.map((member: { id: string; name: string }, i) =>
                                 <MenuItem key={i} value={member.id}>
                                     <Box sx={{ display: "flex", flexDirection: "row" }} width={"100%"}>
-                                        <Avatar>{}</Avatar>
+                                        <Avatar>{ }</Avatar>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
                                         <Box flexGrow={1}></Box>
                                         <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right">CE Team</Typography>
@@ -31,13 +31,13 @@ export const CommendationForm = ({ members }: { members: Array<Member> }) => {
                             )}
                         </Select>
                     </FormControl>
-                    <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true}/>
-                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content"}}>
+                    <TextField label="Message" variant="filled" name="msg" minRows={8} multiline={true} />
+                    <Button variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content" }}>
                         Send
                     </Button>
                 </Stack>
             </form>
-            <Fab color="secondary" aria-label="teams" sx={{position: "absolute", bottom: 16, right: 16}}>
+            <Fab color="secondary" aria-label="teams" sx={{ position: "absolute", bottom: 16, right: 16 }}>
                 <GroupsIcon />
             </Fab>
         </Paper>
