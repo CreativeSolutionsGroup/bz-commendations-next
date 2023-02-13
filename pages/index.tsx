@@ -1,20 +1,17 @@
 import Head from 'next/head'
-import { getServerSession } from 'next-auth';
 import { CommendationForm } from "../components/CommendationForm"
-import { readAllMembers } from '../lib/api/commendations';
-import { Member, prisma } from '@prisma/client';
-import { GetServerSideProps } from 'next';
-import { ServerResponse, IncomingMessage } from 'http';
-import { authOptions } from './api/auth/[...nextauth]'
+import { readAllMembers, readUserCommendations } from '../lib/api/commendations';
+import { Commendation, Member } from '@prisma/client';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps() {
   const members = await readAllMembers();
   return {
     props: { members }
   }
 }
 
-export default function Home({ members }: { members: Array<Member> }) {
+export default function Home({ members }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
