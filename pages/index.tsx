@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import { CommendationForm } from "../components/CommendationForm"
-import { readAllMembers } from '../lib/api/commendations';
-import { Member } from '@prisma/client';
-import { GetServerSideProps } from 'next';
+import { readAllMembers, readUserCommendations } from '../lib/api/commendations';
+import { Commendation, Member } from '@prisma/client';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps() {
   const members = await readAllMembers();
   return {
     props: { members }
   }
 }
 
-export default function Home({ members }: { members: Array<Member> }) {
+export default function Home({ members }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
