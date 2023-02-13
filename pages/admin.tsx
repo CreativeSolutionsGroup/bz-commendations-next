@@ -13,6 +13,8 @@ import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "
 
 export async function getServerSideProps() {
   const teams = await getTeams();
+
+  // Reduce all teams from an array of teams to an array of # of commendations sent PER team.
   const commendationsSent = teams.reduce((previous, current) => {
     previous.push(
       current.members.reduce((previousCommendationsCount, currentMember) => {
@@ -21,6 +23,9 @@ export async function getServerSideProps() {
     )
     return previous;
   }, [] as number[])
+
+
+  // Reduce all teams from an array of teams to an array of # of commendations received PER team.
   const commendationsReceived = teams.reduce((previousTeamCommendationCount, currentTeam) => {
     previousTeamCommendationCount.push(
       currentTeam.members.reduce((previousCommendationsCount, currentMember) => {
@@ -108,9 +113,9 @@ export default function Admin({ teams, commendationsReceived, commendationsSent,
             )
           }
         </Box>
-        <Box sx={{ position: "fixed", bottom: 0, display: "flex"}}>
-          <Card sx={{marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1}}>Commendations sent last month: {lastMonthCommendations}</Card>
-          <Card sx={{marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1}}>Commendations sent this month: {thisMonthCommendations}</Card>
+        <Box sx={{ position: "fixed", bottom: 0, display: "flex" }}>
+          <Card sx={{ marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1 }}>Commendations sent last month: {lastMonthCommendations}</Card>
+          <Card sx={{ marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1 }}>Commendations sent this month: {thisMonthCommendations}</Card>
         </Box>
       </main>
     </>
