@@ -9,6 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
+import { Analytics } from "@mui/icons-material"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
@@ -28,7 +29,12 @@ export const Header = () => {
         </Link>
 
         <Box ml="auto" display="flex">
-
+          {session?.isAdmin &&
+          <IconButton>
+            <Link href="/admin">
+              <Analytics color="secondary" />
+            </Link>
+          </IconButton>}
           <IconButton>
             <Link href="/me">
               <ChatBubbleIcon color="secondary" />
