@@ -72,3 +72,8 @@ export const updateMemberImageURL = async (image: string, id: string) => {
     }
   })
 }
+
+export const readUserCommendations = async (id: string) => {
+  const user = prisma.member.findFirst({where: {id}});
+  return user.commendations;
+}
