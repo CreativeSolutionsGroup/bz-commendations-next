@@ -1,18 +1,17 @@
 import Head from 'next/head'
 import { CommendationForm } from "../components/CommendationForm"
-import { readAllMembers } from '../lib/api/commendations';
-import { Member, Team } from '@prisma/client';
-import { GetServerSideProps } from 'next';
+import { readAllMembers, readUserCommendations } from '../lib/api/commendations';
+import { Commendation, Member } from '@prisma/client';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getServerSideProps() {
   const members = await readAllMembers();
-  console.log(members.filter(m => m.team == null))
   return {
     props: { members }
   }
 }
 
-export default function Home({ members }: { members: Array<Member & {team: Array<Team>}> }) {
+export default function Home({ members }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -26,4 +25,4 @@ export default function Home({ members }: { members: Array<Member & {team: Array
       </main>
     </>
   )
-  }
+}
