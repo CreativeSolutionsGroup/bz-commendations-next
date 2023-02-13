@@ -59,7 +59,11 @@ export const readAllCommendations = async () => {
 }
 
 export const readAllMembers = async () => {
-  return await prisma.member.findMany()
+  return await prisma.member.findMany({
+    include: {
+      team: true
+    }
+  })
 }
 
 export const updateMemberImageURL = async (image: string, id: string) => {
