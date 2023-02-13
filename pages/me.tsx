@@ -1,17 +1,23 @@
-import { AppProps } from "next/app";
+import { Avatar, Box, Paper, Stack, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { Raleway } from "@next/font/google";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Head from "next/head";
-import { CommendationCard } from "../components/CommendationCard";
-import { Layout } from "../components/Layout";
 import { readUserCommendations } from "../lib/api/commendations";
+import { authOptions } from "./api/auth/[...nextauth]";
 
-export async function getServerSideProps() {
-  const comms = await readUserCommendations();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  const comms = await readUserCommendations(session!.user!.email!);
   return {
     props: { comms }
   }
 }
 
-export default function MyCommendations({ Component, pageProps }: AppProps) {
+const raleway = Raleway({ subsets: ["latin"], weight: "900" });
+
+export default function MyCommendations({ comms }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -21,20 +27,19 @@ export default function MyCommendations({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <CommendationCard />
+        <Typography className={raleway.className} fontSize={30} fontWeight={900} mt={2} align="center" color={grey[500]}>YOUR COMMENDATIONS</Typography>
+        {comms.map((comm, i) =>
+          <Paper key={i} sx={{ mt: 2, mx: "auto", maxWidth: "44rem", p: 2, backgroundColor: grey[200], borderRadius: "16px", variant: "elevation", elevation: "5dp" }}>
+            <Box sx={{ display: "flex", flexDirection: "row" }} minHeight="6.5rem">
+              <Avatar>{comm.sender.imageURL}</Avatar>
+              <Stack ml={2}>
+                <Typography fontWeight="bold">{comm.sender.name}</Typography>
+                <Typography fontSize="0.9rem">{comm.message}</Typography>
+              </Stack>
+            </Box>
+          </Paper>
+        )}
       </main>
     </>
   )
 }
-
-// TO DO:
-// 2. map all commendations in return statement to paper component (MUI)
-// 3. inside paper component, implement 3 typographies & an avatar component (within in a BOX component)
-// 3a. sender (commendation.from.name)
-// 3b. date (commendation.createdAt.toLocateDataString{})
-// 3c. message (commendation.message)
-// 4. update typographies to match theme (3a, fontWeight="bold"; 3b, variant="caption")
-// 5. center paper component and implement typgraphy header: YOUR COMMENDATIONS (fontFamily="fantasy")
-
-// QUESTION(S):
-// should the function be named "me" since that is what the MyCommendations button is linked to: "/me"??
