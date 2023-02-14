@@ -33,7 +33,7 @@ export default function MyCommendations({ comms }: InferGetServerSidePropsType<t
           <Paper key={i} sx={{ mb: 2, mx: "auto", maxWidth: "44rem", p: 2, backgroundColor: grey[200], borderRadius: "18px" }}>
             <Box sx={{ display: "flex", flexDirection: "row" }} minHeight="6.5rem">
               <Avatar>
-                <Image fill src={comm.sender.imageURL ?? ""} alt={comm.sender.name} />
+                <Image fill src={comm.sender.imageURL ?? "https://via.placeholder.com/25?text="} alt={comm.sender.name} />
               </Avatar>
               <Stack ml={2}>
                 <Typography fontWeight="bold">{comm.sender.name}</Typography>
