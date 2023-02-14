@@ -18,7 +18,7 @@ export const CommendationForm = ({ members }: { members: Array<Member & {team: A
                 <Stack spacing={1}>
                     <Typography color="primary" className={raleway.className} fontSize={25} fontWeight={900}>Create Commendation</Typography>
                     <FormControl required>
-                        <InputLabel>To</InputLabel>
+                        {/*<InputLabel>To</InputLabel>
                         <Select label="To" name="recipient" onChange={(e: SelectChangeEvent) => setToMember(e.target.value)} value={memberData} >
                             {members.map((member: { id: string; name: string; imageURL: string | null; team: Array<Team> }, i) =>
                                 <MenuItem key={i} value={member.id}>
@@ -32,7 +32,10 @@ export const CommendationForm = ({ members }: { members: Array<Member & {team: A
                                     </Box>
                                 </MenuItem>
                             )}
-                        </Select>
+                        </Select>*/}
+                        <Autocomplete options={members} getOptionLabel={(option) => option.name} renderInput={(params) =>
+                            <TextField {...params} label="To"/>
+                        }/>
                     </FormControl>
                     <TextField required label="Message" variant="filled" name="msg" minRows={8} multiline={true} />
                     <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content" }}>
