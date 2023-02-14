@@ -3,7 +3,7 @@ import { SendEmailCommandInput } from "@aws-sdk/client-ses/dist-types/commands";
 
 const client = new SES({ region: "us-east-2" });
 
-export const send_bz_email = async (senderEmail: string, recipientEmail: string, senderName: string, recipientName: string, message: string) => {
+export const send_bz_email = async (senderEmail: string, recipientEmail: string, senderName: string, message: string) => {
     const params: SendEmailCommandInput = {
         Source: "test@bz-cedarville.com",
         Destination: {
@@ -21,7 +21,7 @@ export const send_bz_email = async (senderEmail: string, recipientEmail: string,
                     <img width="500" height="100" src="http://drive.google.com/uc?export=view&id=1hReQjYUGqZXHK_WT1Q7TAhFbx4jVWa4z"/>
                     <div style="margin-top: 20px">
                         <div style="margin-left: 20px">
-                            <h2>$You have received a new commendation!</h2>
+                            <h2>You have received a new commendation!</h2>
                         </div>
                         <p style="margin-left: 40px; white-space: pre-line">${message}</p>
                         <div style="margin-left: 20px">
