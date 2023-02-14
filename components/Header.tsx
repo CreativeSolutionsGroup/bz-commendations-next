@@ -40,7 +40,7 @@ export const Header = () => {
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
-          {session?.user?.image && <Avatar src={session?.user.image} sx={{ ml: 0.5 }}></Avatar>}
+          <Avatar src={session?.user?.image ?? "https://via.placeholder.com/25?text="} sx={{ ml: 0.5 }} />
 
         </Box>
       </Toolbar>
