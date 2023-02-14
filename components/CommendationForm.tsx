@@ -5,8 +5,9 @@ import { Member, Team } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Raleway } from "@next/font/google";
+import Image from "next/image";
 
-const raleway = Raleway({ weight: "900" });
+const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
 export const CommendationForm = ({ members }: { members: Array<Member & {team: Array<Team>}> }) => {
     const [sending, setSending] = useState(false);
@@ -23,7 +24,7 @@ export const CommendationForm = ({ members }: { members: Array<Member & {team: A
                             {members.map((member: { id: string; name: string; imageURL: string | null; team: Array<Team> }, i) =>
                                 <MenuItem key={i} value={member.id}>
                                     <Box sx={{ display: "flex", flexDirection: "row" }} width={"100%"}>
-                                        <Avatar src={member.imageURL ?? ""}/>
+                                        <Avatar  src={member.imageURL ?? ""}/>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
                                         <Box flexGrow={1}></Box>
                                         <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right" maxWidth= '10rem' overflow="hidden">

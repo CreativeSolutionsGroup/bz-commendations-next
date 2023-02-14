@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { readUserCommendations } from "../lib/api/commendations";
 import { authOptions } from "./api/auth/[...nextauth]";
+import Image from "next/image";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
