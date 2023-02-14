@@ -1,4 +1,4 @@
-import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper, Autocomplete } from "@mui/material"
+import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper } from "@mui/material"
 import { Box } from "@mui/system"
 import React, { useState } from "react"
 import { Member, Team } from "@prisma/client";
