@@ -8,7 +8,8 @@ import { getServerSession } from "next-auth";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import bz from "../assets/BZ-letters.png";
+import bz from "../assets/BZ-letters.png"
+import solid from "../assets/BZ-letters-solid.png"
 import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
 import { authOptions } from "./api/auth/[...nextauth]";
 
