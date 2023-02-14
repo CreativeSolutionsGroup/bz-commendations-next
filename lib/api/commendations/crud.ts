@@ -81,6 +81,9 @@ export const readUserCommendations = async (email: string) => {
   const user = await prisma.member.findFirst({ 
     select: { 
       commendations: { 
+        orderBy: {
+          createdAt: "desc"
+        },
         select: { 
           sender: { 
             select: { 
@@ -95,6 +98,7 @@ export const readUserCommendations = async (email: string) => {
     where: {
       email
     }
+    
   });
   return user!.commendations;
 }
