@@ -27,7 +27,6 @@
     "react-dom": "18.2.0",
     "sharp": "^0.31.3",
     "twilio": "^4.7.2",
-    "sharp": "^0.31.3",
     "typescript": "4.9.4"
   }
 }
