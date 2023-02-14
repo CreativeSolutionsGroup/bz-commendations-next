@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-export const CommendationForm = ({ members }: { members: Array<Member & {team: Array<Team>}> }) => {
+export const CommendationForm = ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
     const [sending, setSending] = useState(false);
     const [memberData, setToMember] = useState("");
 
@@ -24,10 +24,12 @@ export const CommendationForm = ({ members }: { members: Array<Member & {team: A
                             {members.map((member: { id: string; name: string; imageURL: string | null; team: Array<Team> }, i) =>
                                 <MenuItem key={i} value={member.id}>
                                     <Box sx={{ display: "flex", flexDirection: "row" }} width={"100%"}>
-                                        <Avatar  src={member.imageURL ?? ""}/>
+                                        <Avatar>
+                                            <Image fill src={member.imageURL ?? ""} alt="" />
+                                        </Avatar>
                                         <Typography ml={1.5} mt={1}>{member.name}</Typography>
                                         <Box flexGrow={1}></Box>
-                                        <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right" maxWidth= '10rem' overflow="hidden">
+                                        <Typography ml={1.5} mt={1.5} variant="caption" color="CaptionText" align="right" maxWidth='10rem' overflow="hidden">
                                             {member.team.map((team) => team.name).join(", ")}
                                         </Typography>
                                     </Box>

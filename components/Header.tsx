@@ -30,17 +30,19 @@ export const Header = () => {
 
         <Box ml="auto" display="flex">
           {session?.isAdmin &&
-          <IconButton>
-            <Link href="/admin">
-              <Analytics color="secondary" />
-            </Link>
-          </IconButton>}
+            <IconButton>
+              <Link href="/admin">
+                <Analytics color="secondary" />
+              </Link>
+            </IconButton>}
           <IconButton>
             <Link href="/me">
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
-          <Avatar  src={session?.user?.image ?? "https://via.placeholder.com/25?text="} sx={{ ml: 0.5 }} />
+          <Avatar sx={{ ml: 0.5 }}>
+            <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+          </Avatar>
 
         </Box>
       </Toolbar>
