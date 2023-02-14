@@ -1,6 +1,28 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db";
 
-const prisma = new PrismaClient();
+export const idToEmail = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { email } = student;
+
+  return email as string;
+}
+
+export const idToName = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { name } = student;
+
+  return name as string;
+}
 
 export const emailToId = async (sender: string) => {
   const member = await prisma.member.findFirst({ where: { email: sender } });
@@ -37,7 +59,11 @@ export const readAllCommendations = async () => {
 }
 
 export const readAllMembers = async () => {
-  return await prisma.member.findMany()
+  return await prisma.member.findMany({
+    include: {
+      team: true
+    }
+  })
 }
 
 export const updateMemberImageURL = async (image: string, id: string) => {
@@ -49,4 +75,26 @@ export const updateMemberImageURL = async (image: string, id: string) => {
       id
     }
   })
+}
+
+export const readUserCommendations = async (email: string) => {
+  const user = await prisma.member.findFirst({ 
+    select: { 
+      commendations: { 
+        select: { 
+          sender: { 
+            select: { 
+              name: true, 
+              imageURL: true 
+            } 
+          },  
+          message: true
+        }
+      } 
+    }, 
+    where: {
+      email
+    }
+  });
+  return user!.commendations;
 }

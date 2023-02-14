@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Container, Stack, Paper } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
@@ -9,8 +9,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
+import { Analytics } from "@mui/icons-material"
 
-const raleway = Raleway({ weight: "900" });
+const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
 export const Header = () => {
   const { data: session } = useSession()
@@ -28,7 +29,12 @@ export const Header = () => {
         </Link>
 
         <Box ml="auto" display="flex">
-
+          {session?.isAdmin &&
+          <IconButton>
+            <Link href="/admin">
+              <Analytics color="secondary" />
+            </Link>
+          </IconButton>}
           <IconButton>
             <Link href="/me">
               <ChatBubbleIcon color="secondary" />
