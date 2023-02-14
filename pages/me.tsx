@@ -29,7 +29,7 @@ export default function MyCommendations({ comms }: InferGetServerSidePropsType<t
       <main>
         <Typography className={raleway.className} fontSize={30} fontWeight={900} mt={2} align="center" color={grey[500]}>YOUR COMMENDATIONS</Typography>
         {comms.map((comm, i) =>
-          <Paper key={i} sx={{ mt: 2, mx: "auto", maxWidth: "44rem", p: 2, backgroundColor: grey[200], borderRadius: "16px", variant: "elevation", elevation: "5dp" }}>
+          <Paper key={i} sx={{ mt: 2, mx: "auto", maxWidth: "44rem", p: 2, backgroundColor: grey[200], borderRadius: "18px" }}>
             <Box sx={{ display: "flex", flexDirection: "row" }} minHeight="6.5rem">
               <Avatar>{comm.sender.imageURL}</Avatar>
               <Stack ml={2}>
