@@ -24,7 +24,9 @@ export const CommendationForm = ({ members }: { members: Array<Member & { team: 
       <form onSubmit={() => setSending(true)} action="api/commendation" method="POST">
         <Stack spacing={1}>
           <Typography color="primary" className={raleway.className} fontSize={25} fontWeight={900}>Create Commendation</Typography>
+          <TextField hidden name="recipient" value={memberData} />
           <Autocomplete
+            onChange={(_e, v) => setToMember(v?.id ?? "")}
             renderOption={(props, member, state) =>
               <MenuItem key={state.index} {...props} sx={{ width: "100%" }}>
                 <Box display="flex" flexDirection="row" width="100%">
