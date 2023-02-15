@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { readUserCommendations } from "../lib/api/commendations";
 import { authOptions } from "./api/auth/[...nextauth]";
+import Image from "next/image";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -31,7 +32,9 @@ export default function MyCommendations({ comms }: InferGetServerSidePropsType<t
         {comms.map((comm, i) =>
           <Paper key={i} sx={{ mb: 2, mx: "auto", maxWidth: "44rem", p: 2, backgroundColor: grey[200], borderRadius: "18px" }}>
             <Box sx={{ display: "flex", flexDirection: "row" }} minHeight="6.5rem">
-              <Avatar src={comm.sender.imageURL ?? ""} />
+              <Avatar>
+                <Image fill src={comm.sender.imageURL ?? "https://via.placeholder.com/25?text="} alt={comm.sender.name} />
+              </Avatar>
               <Stack ml={2}>
                 <Typography fontWeight="bold">{comm.sender.name}</Typography>
                 <Typography fontSize="0.9rem" sx={{ wordWrap: "break-word", wordBreak: "break-all" }}>{comm.message}</Typography>

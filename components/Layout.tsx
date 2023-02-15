@@ -1,5 +1,4 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { useSession } from "next-auth/react";
 import { PropsWithChildren } from "react"
 import { Header } from "./Header";
 
@@ -19,13 +18,13 @@ export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
             }
         },
     });
-    
+
     return (
         <ThemeProvider theme={theme}>
             <div className={roboto.className}>
 
-            <Header />
-            <main>{children}</main>
+                <Header />
+                <main>{children}</main>
             </div>
         </ThemeProvider>
     )

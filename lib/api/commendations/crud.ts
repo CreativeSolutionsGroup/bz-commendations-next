@@ -12,6 +12,18 @@ export const idToEmail = async (studentId: string) => {
   return email as string;
 }
 
+export const idToPhoneNumber = async (studentId: string) => {
+  const student = await prisma.member.findFirst({ where: { id: studentId } });
+
+  if (!student) {
+    return "";
+  }
+
+  const { phone } = student;
+
+  return phone as string;
+}
+
 export const idToName = async (studentId: string) => {
   const student = await prisma.member.findFirst({ where: { id: studentId } });
 
@@ -59,7 +71,14 @@ export const readAllCommendations = async () => {
 }
 
 export const readAllMembers = async () => {
-  return await prisma.member.findMany()
+  return await prisma.member.findMany({
+    include: {
+      team: true
+    },
+    orderBy: {
+      name: "asc"
+    }
+  })
 }
 
 export const updateMemberImageURL = async (image: string, id: string) => {
@@ -74,23 +93,20 @@ export const updateMemberImageURL = async (image: string, id: string) => {
 }
 
 export const readUserCommendations = async (email: string) => {
-  const user = await prisma.member.findFirst({ 
-    select: { 
-      commendations: { 
-        orderBy: {
-          createdAt: "desc"
-        },
-        select: { 
-          sender: { 
-            select: { 
-              name: true, 
-              imageURL: true 
-            } 
-          },  
+  const user = await prisma.member.findFirst({
+    select: {
+      commendations: {
+        select: {
+          sender: {
+            select: {
+              name: true,
+              imageURL: true
+            }
+          },
           message: true
         }
-      } 
-    }, 
+      }
+    },
     where: {
       email
     }

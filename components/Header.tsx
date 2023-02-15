@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Container, Stack, Paper } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Stack } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
@@ -21,8 +21,8 @@ export const Header = () => {
       <Toolbar>
         <Link href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
           <Stack>
-            <Box><Image width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
-            <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
+            <Box><Image priority width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
+            <Box><Image priority width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
           </Stack>
           <Box ml={1.5} mt={0.6}><Image width={50} height={35} alt="BZ Logo" src={bz.src} /></Box>
           <Typography className={raleway.className} ml={0.5} mt={0.6} fontSize={25} fontWeight={900}>COMMENDATIONS</Typography>
@@ -30,17 +30,19 @@ export const Header = () => {
 
         <Box ml="auto" display="flex">
           {session?.isAdmin &&
-          <IconButton>
-            <Link href="/admin">
-              <Analytics color="secondary" />
-            </Link>
-          </IconButton>}
+            <IconButton>
+              <Link href="/admin">
+                <Analytics color="secondary" />
+              </Link>
+            </IconButton>}
           <IconButton>
             <Link href="/me">
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
-          {session?.user?.image && <Avatar src={session?.user.image} sx={{ ml: 0.5 }}></Avatar>}
+          <Avatar sx={{ ml: 0.5 }}>
+            <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+          </Avatar>
 
         </Box>
       </Toolbar>
