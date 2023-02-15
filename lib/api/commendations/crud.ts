@@ -74,6 +74,9 @@ export const readAllMembers = async () => {
   return await prisma.member.findMany({
     include: {
       team: true
+    },
+    orderBy: {
+      name: "asc"
     }
   })
 }
@@ -90,19 +93,16 @@ export const updateMemberImageURL = async (image: string, id: string) => {
 }
 
 export const readUserCommendations = async (email: string) => {
-  const user = await prisma.member.findFirst({ 
-    select: { 
-      commendations: { 
-        orderBy: {
-          createdAt: "desc"
-        },
-        select: { 
-          sender: { 
-            select: { 
-              name: true, 
-              imageURL: true 
-            } 
-          },  
+  const user = await prisma.member.findFirst({
+    select: {
+      commendations: {
+        select: {
+          sender: {
+            select: {
+              name: true,
+              imageURL: true
+            }
+          },
           message: true
         }
       }

@@ -8,7 +8,8 @@ import { getServerSession } from "next-auth";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import bz from "../assets/BZ-letters.png";
+import bz from "../assets/BZ-letters.png"
+import solid from "../assets/BZ-letters-solid.png"
 import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
 import { authOptions } from "./api/auth/[...nextauth]";
 
@@ -101,21 +102,21 @@ export default function Admin({ teams, commendationsReceived, commendationsSent,
             teams.map((currentTeam, currentIndex) =>
               <Card sx={{ height: 320, flexGrow: 1, marginX: 4, marginTop: 3, width: 250 }}>
                 <Box position={"relative"} height={"60%"} marginRight={2.5}>
-                  <Image src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
+                  <Image priority placeholder="blur" blurDataURL={solid.src} src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
                 </Box>
                 <Typography textAlign={"center"} fontSize={20} mt={3}>{currentTeam.name}</Typography>
                 <Box display={"flex"} mt={2}>
-                  <Box flexGrow={1}></Box>
+                  <Box flexGrow={1} />
                   <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginRight: 1, color: "white" }} display={"flex"}>
-                    <Group></Group>
+                    <Group />
                     <Typography ml={1} textAlign={"right"}>{currentTeam.members.length}</Typography>
                   </Box>
                   <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, color: "white" }} display={"flex"}>
-                    <Send></Send>
+                    <Send />
                     <Typography ml={1} textAlign={"right"}>{commendationsSent[currentIndex]}</Typography>
                   </Box>
                   <Box sx={{ borderRadius: 5, backgroundColor: "#005288", paddingY: 1, paddingX: 2, marginLeft: 1, color: "white" }} display={"flex"}>
-                    <MoveToInbox></MoveToInbox>
+                    <MoveToInbox />
                     <Typography ml={1} textAlign={"right"}>{commendationsReceived[currentIndex]}</Typography>
                   </Box>
                   <Box flexGrow={1}></Box>
