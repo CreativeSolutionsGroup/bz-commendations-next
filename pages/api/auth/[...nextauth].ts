@@ -31,6 +31,11 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user: { email } }) {
+      return !!await prisma.member.count({
+        where: { email: email ?? "" }
+      });
+    },
     async jwt({ token, account }) {
       // Persist the id_token to the token
       if (account) {
