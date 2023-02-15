@@ -34,7 +34,7 @@ export default function MyCommendations({ comms }: InferGetServerSidePropsType<t
               <Avatar>{comm.sender.imageURL}</Avatar>
               <Stack ml={2}>
                 <Typography fontWeight="bold">{comm.sender.name}</Typography>
-                <Typography fontSize="0.9rem">{comm.message}</Typography>
+                <Typography fontSize="0.9rem" sx={{ wordWrap: "break-word", wordBreak: "break-all" }}>{comm.message}</Typography>
               </Stack>
             </Box>
           </Paper>
