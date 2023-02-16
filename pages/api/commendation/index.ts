@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { createCommendation, emailToId, idToEmail, idToName, idToPhoneNumber, readAllCommendations, send_bz_email, send_bz_text, updateMemberImageURL } from "../../../lib/api/commendations";
+import { createCommendation, emailToId, idToEmail, idToName, idToPhoneNumber, readAllCommendations, sendBzEmail, sendBzText, updateMemberImageURL } from "../../../lib/api/commendations";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -32,10 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return
       }
 
-      const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
-      const commendation = await createCommendation(sender as string, recipient, msg);
-      send_bz_email(session?.user?.email as string, await idToEmail(recipient), session?.user?.name as string, msg);
-      send_bz_text(await idToPhoneNumber(sender), session?.user?.name as string, msg);
+      await updateMemberImageURL(session?.user?.image as string, sender as string)
+      await createCommendation(sender as string, recipient, msg);
+      sendBzEmail(session?.user?.email as string, await idToEmail(recipient), session?.user?.name as string, msg);
+      sendBzText(await idToPhoneNumber(sender), session?.user?.name as string, msg);
       res.redirect("/");
       break;
   }
