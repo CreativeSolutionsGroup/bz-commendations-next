@@ -1,10 +1,14 @@
-import Head from 'next/head'
-import { CommendationForm } from "../components/CommendationForm"
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { getServerSession } from 'next-auth';
+import Head from 'next/head';
+import { CommendationForm } from "../components/CommendationForm";
 import { readAllMembers } from '../lib/api/commendations';
-import { InferGetServerSidePropsType } from 'next';
+import { authOptions } from './api/auth/[...nextauth]';
 
-export async function getServerSideProps() {
-  const members = await readAllMembers();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  const members = await readAllMembers(session?.user?.email ?? "");
   return {
     props: { members }
   }

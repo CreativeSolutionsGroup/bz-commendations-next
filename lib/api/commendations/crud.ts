@@ -70,8 +70,14 @@ export const readAllCommendations = async () => {
   return await prisma.commendation.findMany()
 }
 
-export const readAllMembers = async () => {
+export const readAllMembers = async (currentUserEmail = "") => {
+
   return await prisma.member.findMany({
+    where: {
+      NOT: {
+        email: currentUserEmail
+      }
+    },
     include: {
       team: true
     },
@@ -110,7 +116,7 @@ export const readUserCommendations = async (email: string) => {
     where: {
       email
     }
-    
+
   });
   return user!.commendations;
 }
