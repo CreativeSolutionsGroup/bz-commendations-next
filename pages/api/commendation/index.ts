@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
       const commendation = await createCommendation(sender as string, recipient, msg);
       send_bz_email(session?.user?.email as string, await idToEmail(recipient), session?.user?.name as string, msg);
-      send_bz_text(await idToPhoneNumber(sender), session?.user?.name as string, msg);
+      send_bz_text(await idToPhoneNumber(recipient), session?.user?.name as string, msg);
       res.redirect("/");
       break;
   }

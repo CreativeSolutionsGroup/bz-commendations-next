@@ -9,8 +9,8 @@ const client = twilio(apiKey, apiSecret, { accountSid });
 export const send_bz_text = async (recipientNumber: string, senderName: string, message: string) => {
     let messageSplit = message.split(" ");
     await client.messages.create({
-        body: "You revceived a BZ Commendation!\n\n" + 
-            messageSplit.slice(0, 30) + (messageSplit.length > 30 ? "..." : "") + "\n\n--" + 
+        body: "You received a BZ Commendation!\n\n" + 
+            messageSplit.slice(0, 30).join(" ") + (messageSplit.length > 30 ? "..." : "") + "\n\n--" + 
             senderName + "\n" + "(bz-cedarville.com)",
         from: process.env.TWILIO_NUMBER,
         to: recipientNumber
