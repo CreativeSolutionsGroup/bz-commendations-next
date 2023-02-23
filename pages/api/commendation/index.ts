@@ -19,8 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const sender = await emailToId((session?.user?.email) as string);
       const recipient = req.body.recipient as string;
       const msg = req.body.msg as string;
+      const recipientEmail = await idToEmail(recipient);
 
-      if (sender == null) {
+      if (sender == null || session?.user?.email === recipientEmail) {
         console.log("Error: Bad email");
         res.redirect("/");
         return
@@ -34,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
       const commendation = await createCommendation(sender as string, recipient, msg);
-      send_bz_email(session?.user?.email as string, await idToEmail(recipient), session?.user?.name as string, msg);
+      send_bz_email(session?.user?.email as string, recipientEmail, session?.user?.name as string, msg);
       send_bz_text(await idToPhoneNumber(recipient), session?.user?.name as string, msg);
       res.redirect("/");
       break;
