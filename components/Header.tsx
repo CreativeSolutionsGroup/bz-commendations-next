@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, Button, MenuItem } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
@@ -7,14 +7,20 @@ import zulu from "../assets/BZ-flag.png"
 import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
-import { Analytics } from "@mui/icons-material"
+import { Analytics, Logout } from "@mui/icons-material"
+import { MouseEvent, useState } from "react"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
 export const Header = () => {
   const { data: session } = useSession()
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorElement);
+  const handleClose = () => {
+    setAnchorElement(null);
+  }
 
   return (
     <AppBar position="static" color="primary">
@@ -40,9 +46,34 @@ export const Header = () => {
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
-          <Avatar sx={{ ml: 0.5 }}>
-            <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
-          </Avatar>
+          <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
+            <Avatar sx={{ ml: 0.5 }}>
+              <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+            </Avatar>
+          </IconButton>
+          <Menu
+            anchorEl={anchorElement}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            sx={{
+              marginTop: "50px"
+            }}
+          >
+            <MenuItem onClick={() => {
+              signOut();
+              handleClose();
+            }}>
+              Sign out<Logout sx={{ marginLeft: 1 }} />
+            </MenuItem>
+          </Menu>
 
         </Box>
       </Toolbar>
