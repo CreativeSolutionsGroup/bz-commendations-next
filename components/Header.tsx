@@ -1,5 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, MenuItem } from "@mui/material"
-import { Avatar, Box } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, MenuItem, Box, Avatar } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
 import bravo from "../assets/BZ-flag-red.png"
@@ -34,23 +33,25 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
         </Link>
 
         <Box ml="auto" display="flex">
-          {/* {true &&
+          {true &&
             <IconButton>
               <Link href="/admin">
-                <Analytics color="secondary" />
+                {/* <Analytics color="secondary" /> */}
+                a
               </Link>
             </IconButton>}
           <IconButton>
             <Link href="/me">
-              <ChatBubbleIcon color="secondary" />
+              {/* <ChatBubbleIcon color="secondary" /> */}
+              m
             </Link>
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
             <Avatar sx={{ ml: 0.5 }}>
               <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
-          </IconButton> */}
-          {/* <Menu
+          </IconButton>
+          <Menu
             anchorEl={anchorElement}
             open={open}
             onClose={handleClose}
@@ -70,9 +71,10 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
               signOut();
               handleClose();
             }}>
-              Sign out<Logout sx={{ marginLeft: 1 }} />
+              Sign out
+              {/* <Logout sx={{ marginLeft: 1 }} /> */}
             </MenuItem>
-          </Menu> */}
+          </Menu>
 
         </Box>
       </Toolbar>
