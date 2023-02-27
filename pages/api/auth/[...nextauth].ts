@@ -32,26 +32,29 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async signIn({ user: { email } }) {
-      return !!await prisma.member.count({
-        where: { email: email ?? "" }
-      });
+      console.log("si")
+      return true;
+      // return !!await prisma.member.count({
+      //   where: { email: email ?? "" }
+      // });
     },
     async jwt({ token, account }) {
       // Persist the id_token to the token
+      console.log("jwt")
       if (account) {
         token.id_token = account.id_token;
       }
       return token;
     },
     async session({ session, token }) {
-
-      let member = await prisma.member.findFirst({ where: { email: token.email ?? "" }, include: { roles: true } });
+      console.log("sess")
+      // let member = await prisma.member.findFirst({ where: { email: token.email ?? "" }, include: { roles: true } });
 
       // Send send the id_token to the client
       session.id_token = token.id_token;
-      // we think that member here is not undefined because `singIn` should have caught anyone not in the database.
-      session.roles = member!.roles;
-      session.isAdmin = member!.roles.find(r => r.name === "admin") != undefined;
+      // // we think that member here is not undefined because `singIn` should have caught anyone not in the database.
+      // session.roles = member!.roles;
+      // session.isAdmin = member!.roles.find(r => r.name === "admin") != undefined;
 
       return session;
     },
