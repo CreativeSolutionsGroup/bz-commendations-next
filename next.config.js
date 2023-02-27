@@ -8,16 +8,14 @@ const nextConfig = {
       "lh3.googleusercontent.com"
     ]
   },
-  experimental: {
-    modularizeImports: {
-      "@mui/material": {
-        transform: "@mui/material/{{member}}",
-      },
-      "@mui/icons-material": {
-        transform: "@mui/icons-material/{{member}}",
-      },
+  modularizeImports: {
+    '@mui/material': {
+      transform: '@mui/material/{{member}}',
     },
-  },
+    '@mui/icons-material': {
+      transform: '@mui/icons-material/{{member}}',
+    },
+  }
 }
 
 module.exports = nextConfig
