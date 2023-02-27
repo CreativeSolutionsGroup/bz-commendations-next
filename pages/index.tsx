@@ -1,14 +1,12 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
 import Head from 'next/head';
-import { CommendationForm } from "../components/CommendationForm";
+import CommendationForm from "../components/CommendationForm";
 import { readAllMembers } from '../lib/api/commendations';
 import { authOptions } from './api/auth/[...nextauth]';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log("Trying to load serverside session...")
   const session = await getServerSession(context.req, context.res, authOptions);
-  console.log("Finished")
 
   const members = await readAllMembers(session?.user?.email ?? "");
   return {
