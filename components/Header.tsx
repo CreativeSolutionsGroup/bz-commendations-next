@@ -34,7 +34,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
         </Link>
 
         <Box ml="auto" display="flex">
-          {true &&
+          {/* {true &&
             <IconButton>
               <Link href="/admin">
                 <Analytics color="secondary" />
@@ -49,7 +49,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
             <Avatar sx={{ ml: 0.5 }}>
               <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
-          </IconButton>
+          </IconButton> */}
           {/* <Menu
             anchorEl={anchorElement}
             open={open}
