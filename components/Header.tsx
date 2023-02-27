@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, Button, MenuItem } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, MenuItem } from "@mui/material"
 import { Avatar, Box } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
@@ -7,7 +7,7 @@ import zulu from "../assets/BZ-flag.png"
 import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { Raleway } from "@next/font/google"
 import { Analytics, Logout } from "@mui/icons-material"
 import { MouseEvent, useState } from "react"
@@ -24,7 +24,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Link prefetch={false} href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
+        <Link href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
           <Stack>
             <Box><Image width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
             <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
@@ -33,15 +33,15 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
           <Typography className={raleway.className} ml={0.5} mt={0.6} fontSize={25} fontWeight={900}>COMMENDATIONS</Typography>
         </Link>
 
-        {/* <Box ml="auto" display="flex">
-          {true &&
+        <Box ml="auto" display="flex">
+          {/* {true &&
             <IconButton>
-              <Link prefetch={false} href="/admin">
+              <Link href="/admin">
                 <Analytics color="secondary" />
               </Link>
             </IconButton>}
           <IconButton>
-            <Link prefetch={false} href="/me">
+            <Link href="/me">
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
@@ -49,7 +49,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
             <Avatar sx={{ ml: 0.5 }}>
               <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
-          </IconButton>
+          </IconButton> */}
           <Menu
             anchorEl={anchorElement}
             open={open}
@@ -74,7 +74,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
             </MenuItem>
           </Menu>
 
-        </Box> */}
+        </Box>
       </Toolbar>
 
     </AppBar>
