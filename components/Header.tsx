@@ -14,8 +14,7 @@ import { MouseEvent, useState } from "react"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-export const Header = () => {
-  const { data: session } = useSession()
+export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => {
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElement);
   const handleClose = () => {
@@ -34,8 +33,8 @@ export const Header = () => {
           <Typography className={raleway.className} ml={0.5} mt={0.6} fontSize={25} fontWeight={900}>COMMENDATIONS</Typography>
         </Link>
 
-        <Box ml="auto" display="flex">
-          {session?.isAdmin &&
+        {/* <Box ml="auto" display="flex">
+          {true &&
             <IconButton>
               <Link prefetch={false} href="/admin">
                 <Analytics color="secondary" />
@@ -48,7 +47,7 @@ export const Header = () => {
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
             <Avatar sx={{ ml: 0.5 }}>
-              <Image fill src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+              <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
           </IconButton>
           <Menu
@@ -75,7 +74,7 @@ export const Header = () => {
             </MenuItem>
           </Menu>
 
-        </Box>
+        </Box> */}
       </Toolbar>
 
     </AppBar>
