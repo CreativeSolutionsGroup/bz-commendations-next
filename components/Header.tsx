@@ -33,17 +33,15 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
         </Link>
 
         <Box ml="auto" display="flex">
-          {true &&
+          {isAdmin &&
             <IconButton>
               <Link href="/admin">
-                {/* <Analytics color="secondary" /> */}
-                a
+                <Analytics color="secondary" />
               </Link>
             </IconButton>}
           <IconButton>
             <Link href="/me">
-              {/* <ChatBubbleIcon color="secondary" /> */}
-              m
+              <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
@@ -72,7 +70,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
               handleClose();
             }}>
               Sign out
-              {/* <Logout sx={{ marginLeft: 1 }} /> */}
+              <Logout sx={{ marginLeft: 1 }} />
             </MenuItem>
           </Menu>
 
