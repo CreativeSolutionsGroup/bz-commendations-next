@@ -1,5 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, Button, MenuItem } from "@mui/material"
-import { Avatar, Box } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Typography, Stack, Menu, MenuItem, Box, Avatar } from "@mui/material"
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble"
 
 import bravo from "../assets/BZ-flag-red.png"
@@ -7,15 +6,14 @@ import zulu from "../assets/BZ-flag.png"
 import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { Raleway } from "@next/font/google"
 import { Analytics, Logout } from "@mui/icons-material"
 import { MouseEvent, useState } from "react"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-export const Header = () => {
-  const { data: session } = useSession()
+export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => {
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElement);
   const handleClose = () => {
@@ -25,7 +23,7 @@ export const Header = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Link prefetch={false} href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
+        <Link href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
           <Stack>
             <Box><Image width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
             <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
@@ -35,20 +33,20 @@ export const Header = () => {
         </Link>
 
         <Box ml="auto" display="flex">
-          {session?.isAdmin &&
+          {isAdmin &&
             <IconButton>
-              <Link prefetch={false} href="/admin">
+              <Link href="/admin">
                 <Analytics color="secondary" />
               </Link>
             </IconButton>}
           <IconButton>
-            <Link prefetch={false} href="/me">
+            <Link href="/me">
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
             <Avatar sx={{ ml: 0.5 }}>
-              <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+              <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
           </IconButton>
           <Menu
@@ -71,7 +69,8 @@ export const Header = () => {
               signOut();
               handleClose();
             }}>
-              Sign out<Logout sx={{ marginLeft: 1 }} />
+              Sign out
+              <Logout sx={{ marginLeft: 1 }} />
             </MenuItem>
           </Menu>
 
