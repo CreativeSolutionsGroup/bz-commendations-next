@@ -6,12 +6,12 @@ import { readAllMembers } from '../lib/api/commendations';
 import { authOptions } from './api/auth/[...nextauth]';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
 
-  // const members = await readAllMembers(session?.user?.email ?? "");
-  // return {
-  //   props: { members }
-  // }
+  const members = await readAllMembers(session?.user?.email ?? "");
+  return {
+    props: { members }
+  }
 }
 
 export default function Home({ members }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -23,7 +23,7 @@ export default function Home({ members }: InferGetServerSidePropsType<typeof get
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        {/* <CommendationForm members={members} /> */}
+        <CommendationForm members={members} />
       </main>
     </>
   )
