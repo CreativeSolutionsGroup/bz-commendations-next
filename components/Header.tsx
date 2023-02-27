@@ -25,7 +25,7 @@ export const Header = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Link href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
+        <Link prefetch={false} href={"/"} style={{ display: "flex", flexDirection: "row", textDecoration: "none", color: "white" }}>
           <Stack>
             <Box><Image priority width={35} height={20} alt="Bravo Flag" src={bravo.src}></Image></Box>
             <Box><Image priority width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
@@ -37,12 +37,12 @@ export const Header = () => {
         <Box ml="auto" display="flex">
           {session?.isAdmin &&
             <IconButton>
-              <Link href="/admin">
+              <Link prefetch={false} href="/admin">
                 <Analytics color="secondary" />
               </Link>
             </IconButton>}
           <IconButton>
-            <Link href="/me">
+            <Link prefetch={false} href="/me">
               <ChatBubbleIcon color="secondary" />
             </Link>
           </IconButton>
