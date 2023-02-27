@@ -12,7 +12,7 @@ export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
     // <ThemeProvider theme={theme}>
     // <div className={roboto.className}>
     <>
-      <Header />
+      {/* <Header /> */}
       <main>{children}</main>
     </>
     // </div>
