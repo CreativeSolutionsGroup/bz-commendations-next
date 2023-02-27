@@ -101,7 +101,7 @@ export default function Admin({ teams, commendationsReceived, commendationsSent,
             teams.map((currentTeam, currentIndex) =>
               <Card sx={{ height: 320, flexGrow: 1, marginX: 4, marginTop: 3, width: 250 }}>
                 <Box position={"relative"} height={"60%"} marginRight={2.5}>
-                  <Image priority placeholder="blur" blurDataURL={solid.src} sizes="(max-width: 350px) 16vw" src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
+                  <Image placeholder="blur" blurDataURL={solid.src} sizes="(max-width: 350px) 16vw" src={currentTeam.imageURL ?? bz.src} alt={currentTeam.name + " Logo"} style={{ objectFit: "contain", margin: 10 }} fill />
                 </Box>
                 <Typography textAlign={"center"} fontSize={20} mt={3}>{currentTeam.name}</Typography>
                 <Box display={"flex"} mt={2}>

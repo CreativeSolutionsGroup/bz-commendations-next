@@ -48,7 +48,7 @@ export const Header = () => {
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
             <Avatar sx={{ ml: 0.5 }}>
-              <Image fill priority src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
+              <Image fill src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
           </IconButton>
           <Menu
