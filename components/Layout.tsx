@@ -1,4 +1,4 @@
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider } from "@mui/material/styles";
 import { PropsWithChildren } from "react"
 import { Header } from "./Header";
 
