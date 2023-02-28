@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { createCommendation, emailToId, idsToEmails, idToName, idToPhoneNumber, readAllCommendations, send_bz_email, send_bz_text, updateMemberImageURL } from "../../../lib/api/commendations";
+import { createCommendation, emailToId, idToPhoneNumber, readAllCommendations, send_bz_email, send_bz_text, updateMemberImageURL } from "../../../lib/api/commendations";
 import { getTeamOfMember } from "../../../lib/api/teams";
 import { authOptions } from "../auth/[...nextauth]";
 
