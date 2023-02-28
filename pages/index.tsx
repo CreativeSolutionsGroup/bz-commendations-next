@@ -24,7 +24,7 @@ export default function Home({ members }: InferGetServerSidePropsType<typeof get
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <CommendationForm members={members} />
+        <CommendationForm recipients={members} />
       </main>
     </>
   )

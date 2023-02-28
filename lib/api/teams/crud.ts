@@ -1,3 +1,4 @@
+import { Member, Team } from "@prisma/client";
 import { prisma } from "../db";
 
 export const getTeams = async () => {
@@ -14,16 +15,46 @@ export const getTeams = async () => {
     })
 }
 
-export const getTeamOfMember = async (memberId: string) => {
-    return await prisma.team.findFirst({
+export const getContactInfo = async (id: string) => {
+    const member = await prisma.member.findFirst({
         where: {
-            members: {
-                some: {
-                    id: memberId
-                }
-            }
-        },
+            id
+        }
     })
+
+    if (member) {
+        return { emails: [member.email], phoneNumbers: [member.phone ?? ""] };
+    }
+
+    const team = await prisma.team.findFirst({
+        where: {
+            id
+        },
+        include: {
+            members: true
+        }
+    })
+
+    if (team) {
+        const emails: string[] = [];
+        const phoneNumbers: string[] = [];
+        team.members.forEach((currentMember) => {
+            emails.push(currentMember.email);
+            phoneNumbers.push(currentMember.phone ?? "");
+        });
+
+        return { emails, phoneNumbers };
+    }
+
+    return { emails: [], phoneNumbers: [] };
+}
+
+export const idToEmail = async (memberId: string) => {
+    return (await prisma.member.findFirst({
+        where: {
+            id: memberId
+        }
+    }))?.email ?? "";
 }
 
 export const getLastMonthCommendations = async () => {

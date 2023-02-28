@@ -3,7 +3,7 @@ import { SendEmailCommandInput } from "@aws-sdk/client-ses/dist-types/commands";
 
 const client = new SES({ region: "us-east-2" });
 
-export const send_bz_email = async (
+export const sendBzEmail = async (
     senderEmail: string,
     recipientEmails: string[],
     senderName: string,

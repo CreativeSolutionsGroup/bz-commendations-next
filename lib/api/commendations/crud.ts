@@ -1,25 +1,5 @@
 import { prisma } from "../db";
 
-export const idsToEmails = async (studentIds: string[]) => {
-  const emails = (await Promise.all(
-    studentIds.map((currentId) => prisma.member.findFirst({ where: { id: currentId } }))))
-    .map((currentMember) => currentMember?.email);
-
-  return emails as string[];
-}
-
-export const idToPhoneNumber = async (studentId: string) => {
-  const student = await prisma.member.findFirst({ where: { id: studentId } });
-
-  if (!student) {
-    return "";
-  }
-
-  const { phone } = student;
-
-  return phone as string;
-}
-
 export const idToName = async (studentId: string) => {
   const student = await prisma.member.findFirst({ where: { id: studentId } });
 

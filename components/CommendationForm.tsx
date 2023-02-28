@@ -9,42 +9,45 @@ import Image from "next/image";
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-// getOptionLabel={(member) => member.name} onChange={(_event, v) => console.log(v)} renderOption={(_props, member) => (
-//             <>
-//               
-//             </>
-//           )}
+type TeamListItem = Team & { members: Array<Member> };
+type TeamList = Array<TeamListItem>;
+type MemberListItem = Member & { team: Array<Team> };
+type MemberList = Array<MemberListItem>;
 
-export const CommendationForm = ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
+export const CommendationForm = ({ recipients, team }: { recipients: MemberList | TeamList, team?: boolean }) => {
   const [sending, setSending] = useState(false);
-  const [memberData, setToMember] = useState("");
+  const [itemData, setToItem] = useState("");
 
   return (
     <Paper sx={{ mt: 4, mx: "auto", maxWidth: "30rem", p: 2 }}>
       <form onSubmit={() => setSending(true)} action="api/commendation" method="POST">
         <Stack spacing={1}>
           <Typography color="primary" className={raleway.className} fontSize={25} fontWeight={900}>Create Commendation</Typography>
-          <TextField sx={{ display: "none" }} hidden name="recipient" value={memberData} />
+          <TextField sx={{ display: "none" }} hidden name="recipient" value={itemData} />
           <Autocomplete
-            onChange={(_e, v) => setToMember(v?.id ?? "")}
-            renderOption={(props, member, state) =>
+            onChange={(_e, v) => setToItem(v?.id ?? "")}
+            options={recipients as (TeamListItem | MemberListItem)[]}
+            groupBy={(option) => option.name.charAt(0)}
+            getOptionLabel={(option) => option.name}
+            renderInput={(params) => <TextField {...params} label="To" required />}
+            renderOption={(props, option, state) =>
               <MenuItem key={state.index} {...props} sx={{ width: "100%" }}>
                 <Box display="flex" flexDirection="row" width="100%">
                   <Avatar>
-                    <Image fill src={member.imageURL ?? "https://via.placeholder.com/25?text="} alt="" />
+                    <Image fill src={option.imageURL ?? "https://via.placeholder.com/25?text="} alt="" />
                   </Avatar>
-                  <Typography ml={1.5} mt={1}>{member.name}</Typography>
+                  <Typography ml={1.5} mt={1}>{option.name}</Typography>
                   <Box flexGrow={1}></Box>
-                  <Typography mt={1.5} variant="caption" color="CaptionText" align="right" maxWidth='10rem' overflow="hidden">
-                    {member.team.map((team) => team.name).join(", ")}
-                  </Typography>
+                  {!team ?
+                    <Typography mt={1.5} variant="caption" color="CaptionText" align="right" maxWidth='10rem' overflow="hidden">
+                      {(option as MemberListItem).team.map((team) => team.name).join(", ")}
+                    </Typography>
+                    : <></>
+                  }
                 </Box>
-              </MenuItem>}
-            getOptionLabel={(member) => member.name}
-            options={members} groupBy={(member) => member.name.charAt(0)}
-            renderInput={(params) => <TextField {...params}
-              label="To"
-              required />} />
+              </MenuItem>
+            }
+          />
           <TextField required label="Message" variant="filled" name="msg" minRows={8} multiline={true} />
           <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content" }}>
             Send

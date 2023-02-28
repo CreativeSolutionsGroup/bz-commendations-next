@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { createCommendation, emailToId, idToPhoneNumber, readAllCommendations, send_bz_email, send_bz_text, updateMemberImageURL } from "../../../lib/api/commendations";
-import { getTeamOfMember } from "../../../lib/api/teams";
+import { createCommendation, emailToId, readAllCommendations, sendBzEmail, sendBzText, updateMemberImageURL } from "../../../lib/api/commendations";
+import { getContactInfo } from "../../../lib/api/teams";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -18,57 +18,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case "POST":
       const sender = await emailToId((session?.user?.email) as string);
-      const recipientsString = req.body.recipient as string;
-      const recipients = recipientsString.split(",");
+      const recipient = req.body.recipient as string;
       const msg = req.body.msg as string;
+      const contactInfo = await getContactInfo(recipient);
 
-      const spliceIndex = recipients.indexOf((session?.user?.email) as string);
-      if (spliceIndex > -1) {
-        recipients.splice(spliceIndex, 1);
+      const selfIndex = contactInfo.emails.indexOf(session?.user?.email ?? "");
+      if (selfIndex != -1) {
+        contactInfo.emails.splice(selfIndex, 1);
+        contactInfo.phoneNumbers.splice(selfIndex, 1);
       }
 
-      if (sender == null || recipients.length < 1) {
+      if (sender == null || contactInfo.emails.length < 1) {
         console.log("Error: Bad email");
-        res.redirect("/teamCommendation");
+        res.redirect("/");
         return
       }
 
       if (req.body.recipient == null || req.body.msg == null) {
         console.error("Error: No recipient or no message. ")
-        res.redirect("/teamCommendation")
+        res.redirect("/")
         return
       }
 
-      console.log(recipients);
-
-      const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
-
-      if (recipients.length > 1) {
-        const teamReceiving = await getTeamOfMember(recipients[0]);
-        send_bz_email(
-          session?.user?.email as string,
-          recipients,
-          session?.user?.name as string,
-          msg,
-          {
-            isTeam: true,
-            teamName: teamReceiving?.name ?? ""
-          }
-        );
-      } else {
-        send_bz_email(
-          session?.user?.email as string,
-          recipients,
-          session?.user?.name as string,
-          msg
-        );
+      const update = await updateMemberImageURL(session?.user?.image as string, sender as string);
+      sendBzEmail(session?.user?.email as string, contactInfo.emails, session?.user?.name as string, msg);
+      for (let i = 0; i < contactInfo.emails.length; i++) {
+        const commendation = await createCommendation(sender as string, await emailToId(contactInfo.emails[i]) ?? "", msg);
+        sendBzText(contactInfo.phoneNumbers[i], session?.user?.name as string, msg);
       }
-
-      recipients.forEach(async (recipient) => {
-        const commendation = await createCommendation(sender as string, await emailToId(recipient) ?? "", msg);
-        send_bz_text(await idToPhoneNumber(recipient), session?.user?.name as string, msg);
-      })
-      res.redirect("/teamCommendation");
+      if (contactInfo.emails.length > 1) {
+        res.redirect("/teamCommendation")
+      } else {
+        res.redirect("/");
+      }
       break;
   }
 }
