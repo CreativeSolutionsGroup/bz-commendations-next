@@ -10,12 +10,6 @@ import bz from "../assets/bz-logo.png"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-// getOptionLabel={(member) => member.name} onChange={(_event, v) => console.log(v)} renderOption={(_props, member) => (
-//             <>
-//               
-//             </>
-//           )}
-
 export default ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
   const [sending, setSending] = useState(false);
   const [memberData, setToMember] = useState("");
@@ -58,9 +52,3 @@ export default ({ members }: { members: Array<Member & { team: Array<Team> }> })
     </Paper>
   )
 }
-
-// FIXME:
-// - tranform Select to AutoComplete
-// - right-align CE member teams
-// - add avatar images {member.imageURL}
-// - disable button (funtionality: neither TextField nor Select can be null)?

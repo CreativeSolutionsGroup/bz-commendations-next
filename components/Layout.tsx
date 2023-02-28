@@ -11,7 +11,7 @@ export const Layout = ({ children }: PropsWithChildren<{ children: any }>) => {
   return (
     <ThemeProvider theme={theme}>
       <div className={roboto.className}>
-        <Header image="" isAdmin />
+        <Header />
         <main>{children}</main>
       </div>
     </ThemeProvider>

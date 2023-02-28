@@ -6,14 +6,15 @@ import zulu from "../assets/BZ-flag.png"
 import bz from "../assets/BZ-letters-solid.png"
 import Image from "next/image"
 import Link from "next/link"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
 import { Analytics, Logout } from "@mui/icons-material"
 import { MouseEvent, useState } from "react"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => {
+export const Header = () => {
+  const { data: session } = useSession()
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElement);
   const handleClose = () => {
@@ -33,7 +34,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
         </Link>
 
         <Box ml="auto" display="flex">
-          {isAdmin &&
+          {session?.isAdmin &&
             <IconButton>
               <Link href="/admin">
                 <Analytics color="secondary" />
@@ -46,7 +47,7 @@ export const Header = ({ isAdmin, image }: { isAdmin: true, image: string }) => 
           </IconButton>
           <IconButton onClick={(e: MouseEvent<HTMLElement>) => { setAnchorElement(e.currentTarget) }}>
             <Avatar sx={{ ml: 0.5 }}>
-              <Image fill src={image ?? "https://via.placeholder.com/25?text="} alt="" />
+              <Image fill src={session?.user?.image ?? "https://via.placeholder.com/25?text="} alt="" />
             </Avatar>
           </IconButton>
           <Menu
