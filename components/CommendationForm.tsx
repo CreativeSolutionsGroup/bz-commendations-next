@@ -13,7 +13,7 @@ const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 type TeamListItem = Team & { members: Array<Member> };
 type MemberListItem = Member & { team: Array<Team> };
 
-export const CommendationForm = ({ recipients, team }: { recipients: (MemberListItem | TeamListItem)[], team?: boolean }) => {
+export default ({ recipients, team }: { recipients: (MemberListItem | TeamListItem)[], team?: boolean }) => {
   const [sending, setSending] = useState(false);
   const [itemData, setToItem] = useState("");
 

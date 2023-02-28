@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
-import { CommendationForm } from "../components/CommendationForm";
+import CommendationForm from "../components/CommendationForm";
 import { getTeams } from "../lib/api/teams";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
