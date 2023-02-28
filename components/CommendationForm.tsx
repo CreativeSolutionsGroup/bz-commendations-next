@@ -10,11 +10,9 @@ import Image from "next/image";
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
 type TeamListItem = Team & { members: Array<Member> };
-type TeamList = Array<TeamListItem>;
 type MemberListItem = Member & { team: Array<Team> };
-type MemberList = Array<MemberListItem>;
 
-export const CommendationForm = ({ recipients, team }: { recipients: MemberList | TeamList, team?: boolean }) => {
+export const CommendationForm = ({ recipients, team }: { recipients: (MemberListItem | TeamListItem)[], team?: boolean }) => {
   const [sending, setSending] = useState(false);
   const [itemData, setToItem] = useState("");
 
@@ -26,7 +24,7 @@ export const CommendationForm = ({ recipients, team }: { recipients: MemberList 
           <TextField sx={{ display: "none" }} hidden name="recipient" value={itemData} />
           <Autocomplete
             onChange={(_e, v) => setToItem(v?.id ?? "")}
-            options={recipients as (TeamListItem | MemberListItem)[]}
+            options={recipients}
             groupBy={(option) => option.name.charAt(0)}
             getOptionLabel={(option) => option.name}
             renderInput={(params) => <TextField {...params} label="To" required />}
