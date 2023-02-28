@@ -1,21 +1,16 @@
-import { Button, Fab, Select, TextField, Typography, MenuItem, SelectChangeEvent, Stack, InputLabel, FormControl, Avatar, Paper, Autocomplete, AutocompleteChangeReason, InputAdornment } from "@mui/material"
+import { Button, Fab, TextField, Typography, MenuItem, Stack, Avatar, Paper, Autocomplete } from "@mui/material"
 import { Box } from "@mui/system"
-import React, { useState } from "react"
+import { useState } from "react"
 import { Member, Team } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Raleway } from "@next/font/google";
 import Image from "next/image";
+import bz from "../assets/bz-logo.png"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 
-// getOptionLabel={(member) => member.name} onChange={(_event, v) => console.log(v)} renderOption={(_props, member) => (
-//             <>
-//               
-//             </>
-//           )}
-
-export const CommendationForm = ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
+export default ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
   const [sending, setSending] = useState(false);
   const [memberData, setToMember] = useState("");
 
@@ -31,7 +26,7 @@ export const CommendationForm = ({ members }: { members: Array<Member & { team: 
               <MenuItem key={state.index} {...props} sx={{ width: "100%" }}>
                 <Box display="flex" flexDirection="row" width="100%">
                   <Avatar>
-                    <Image fill src={member.imageURL ?? "https://via.placeholder.com/25?text="} alt="" />
+                    <Image fill src={member.imageURL ?? "https://via.placeholder.com/25?text="} alt="" placeholder="blur" blurDataURL={bz.src} />
                   </Avatar>
                   <Typography ml={1.5} mt={1}>{member.name}</Typography>
                   <Box flexGrow={1}></Box>
@@ -57,9 +52,3 @@ export const CommendationForm = ({ members }: { members: Array<Member & { team: 
     </Paper>
   )
 }
-
-// FIXME:
-// - tranform Select to AutoComplete
-// - right-align CE member teams
-// - add avatar images {member.imageURL}
-// - disable button (funtionality: neither TextField nor Select can be null)?
