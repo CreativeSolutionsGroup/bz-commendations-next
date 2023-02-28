@@ -1,15 +1,11 @@
 import { prisma } from "../db";
 
-export const idToEmail = async (studentId: string) => {
-  const student = await prisma.member.findFirst({ where: { id: studentId } });
+export const idsToEmails = async (studentIds: string[]) => {
+  const emails = (await Promise.all(
+    studentIds.map((currentId) => prisma.member.findFirst({ where: { id: currentId } }))))
+    .map((currentMember) => currentMember?.email);
 
-  if (!student) {
-    return "";
-  }
-
-  const { email } = student;
-
-  return email as string;
+  return emails as string[];
 }
 
 export const idToPhoneNumber = async (studentId: string) => {

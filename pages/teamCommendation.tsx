@@ -1,6 +1,17 @@
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import { TeamCommendationForm } from "../components/TeamCommendationForm";
+import { getTeams } from "../lib/api/teams";
 
-export default function TeamCommendation() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const teams = await getTeams();
+
+  return {
+    props: { teams }
+  }
+}
+
+export default function TeamCommendation({ teams }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -9,6 +20,9 @@ export default function TeamCommendation() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <main>
+        <TeamCommendationForm teams={teams} />
+      </main>
     </>
   )
 }
