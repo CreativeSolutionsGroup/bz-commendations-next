@@ -19,9 +19,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case "POST":
       const sender = await emailToId((session?.user?.email) as string);
       const recipientsString = req.body.recipient as string;
+      const recipients = recipientsString.split(",");
       const msg = req.body.msg as string;
 
-      if (sender == null) {
+      const spliceIndex = recipients.indexOf((session?.user?.email) as string);
+      if (spliceIndex > -1) {
+        recipients.splice(spliceIndex, 1);
+      }
+
+      if (sender == null || recipients.length < 1) {
         console.log("Error: Bad email");
         res.redirect("/teamCommendation");
         return
@@ -33,7 +39,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return
       }
 
-      const recipients = recipientsString.split(",");
       console.log(recipients);
 
       const update = await updateMemberImageURL(session?.user?.image as string, sender as string)

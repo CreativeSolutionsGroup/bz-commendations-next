@@ -28,8 +28,8 @@ export const TeamCommendationForm = ({ teams }: { teams: Array<Team & { members:
         <Stack spacing={1}>
           <Typography color="primary" className={raleway.className} fontSize={25} fontWeight={900}>Create Commendation</Typography>
           <TextField sx={{ display: "none" }} hidden name="recipient"
-            value={getTeam(teamData)?.members.map((currentTeam) => {
-              return currentTeam.email;
+            value={getTeam(teamData)?.members.map((currentMember) => {
+              return currentMember.email;
             }).join(",")}
           />
           <Autocomplete
