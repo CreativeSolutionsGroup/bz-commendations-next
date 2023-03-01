@@ -36,12 +36,8 @@ export const getContactInfo = async (id: string) => {
     })
 
     if (team) {
-        const emails: string[] = [];
-        const phoneNumbers: string[] = [];
-        team.members.forEach((currentMember) => {
-            emails.push(currentMember.email);
-            phoneNumbers.push(currentMember.phone ?? "");
-        });
+        const emails = team.members.map((currentMember) => currentMember.email);
+        const phoneNumbers = team.members.map((currentMember) => currentMember.phone ?? "");
 
         return { emails, phoneNumbers };
     }
