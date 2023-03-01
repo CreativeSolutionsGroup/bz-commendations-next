@@ -30,7 +30,7 @@ export const Header = () => {
             <Box><Image width={35} height={20} alt="Zulu Flag" src={zulu.src}></Image></Box>
           </Stack>
           <Box ml={1.5} mt={0.6}><Image width={50} height={35} alt="BZ Logo" src={bz.src} /></Box>
-          <Typography className={raleway.className} ml={1.5} mt={0.6} fontSize={25} fontWeight={900} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+          <Typography className={raleway.className} ml={1.5} mt={0.6} fontSize={25} fontWeight={900} sx={{ display: { xs: "none", sm: "block" } }}>
             COMMENDATIONS
           </Typography>
         </Link>
