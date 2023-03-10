@@ -8,7 +8,7 @@ export async function getStaticProps() {
 
   return {
     props: { members },
-    revalidate: 60
+    revalidate: 3600
   }
 }
 
