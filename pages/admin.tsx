@@ -3,7 +3,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import { Card, IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
 import { getServerSession } from "next-auth";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,17 +13,7 @@ import solid from "../assets/BZ-letters-solid.png"
 import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
 import { authOptions } from "./api/auth/[...nextauth]";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let session = await getServerSession(context.req, context.res, authOptions);
-  if (!session?.isAdmin) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/"
-      }
-    }
-  }
-
+export async function getStaticProps() {
   const teams = await getTeams();
 
   // Reduce all teams from an array of teams to an array of # of commendations sent PER team.
@@ -50,11 +40,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const lastMonthCommendations = await getLastMonthCommendations();
   const thisMonthCommendations = await getThisMonthCommendations();
 
-  return { props: { teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations } };
+  return {
+    props: { teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations },
+    revalidate: 60
+  };
 }
 
-export default function Admin({ teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
+export default function Admin({ teams, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [viewMode, setViewMode] = useState("square");
   const [sortMode, setSortMode] = useState("atoz");
 
