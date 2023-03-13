@@ -23,7 +23,7 @@ export default function Home({ members }: InferGetServerSidePropsType<typeof get
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <CommendationForm members={members} />
+        <CommendationForm recipients={members} />
       </main>
     </>
   )

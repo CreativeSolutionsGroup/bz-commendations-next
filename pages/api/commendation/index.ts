@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { createCommendation, emailToId, idToEmail, idToName, idToPhoneNumber, readAllCommendations, send_bz_email, send_bz_text, updateMemberImageURL } from "../../../lib/api/commendations";
+import { createCommendation, emailToId, readAllCommendations, sendBzEmail, sendBzText, updateMemberImageURL } from "../../../lib/api/commendations";
+import { getContactInfo } from "../../../lib/api/teams";
 import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -19,9 +20,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const sender = await emailToId((session?.user?.email) as string);
       const recipient = req.body.recipient as string;
       const msg = req.body.msg as string;
-      const recipientEmail = await idToEmail(recipient);
+      const contactInfo = await getContactInfo(recipient);
 
-      if (sender == null || session?.user?.email === recipientEmail) {
+      const selfIndex = contactInfo.emails.indexOf(session?.user?.email ?? "");
+      if (selfIndex != -1) {
+        contactInfo.emails.splice(selfIndex, 1);
+        contactInfo.phoneNumbers.splice(selfIndex, 1);
+      }
+
+      if (sender == null || contactInfo.emails.length < 1) {
         console.log("Error: Bad email");
         res.redirect("/");
         return
@@ -33,11 +40,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return
       }
 
-      const update = await updateMemberImageURL(session?.user?.image as string, sender as string)
-      const commendation = await createCommendation(sender as string, recipient, msg);
-      send_bz_email(session?.user?.email as string, recipientEmail, session?.user?.name as string, msg);
-      send_bz_text(await idToPhoneNumber(recipient), session?.user?.name as string, msg);
-      res.redirect("/");
+      const update = await updateMemberImageURL(session?.user?.image as string, sender as string);
+      sendBzEmail(session?.user?.email as string, contactInfo.emails, session?.user?.name as string, msg);
+      for (let i = 0; i < contactInfo.emails.length; i++) {
+        const commendation = await createCommendation(sender as string, await emailToId(contactInfo.emails[i]) ?? "", msg);
+        sendBzText(contactInfo.phoneNumbers[i], session?.user?.name as string, msg);
+      }
+      if (contactInfo.emails.length > 1) {
+        res.redirect("/teamCommendation")
+      } else {
+        res.redirect("/");
+      }
       break;
   }
 }
