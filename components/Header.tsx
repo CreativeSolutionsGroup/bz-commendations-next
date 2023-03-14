@@ -9,7 +9,7 @@ import Link from "next/link"
 import { signOut, useSession } from "next-auth/react"
 import { Raleway } from "@next/font/google"
 import { Analytics, Logout } from "@mui/icons-material"
-import { MouseEvent, useState } from "react"
+import { MouseEvent, useEffect, useState } from "react"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 

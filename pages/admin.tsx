@@ -2,15 +2,13 @@ import { ArrowRight, EmojiEvents, GridView, Settings } from "@mui/icons-material
 import { Card, IconButton, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import { GetServerSidePropsContext, InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
-import { getServerSession } from "next-auth";
+import { InferGetServerSidePropsType, InferGetStaticPropsType,  } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import AdminLeaderboardView from "../components/AdminLeaderboardView";
 import AdminSquareView from "../components/AdminSquareView";
 import { getMembersWithReceivedCommendations, getMembersWithSentCommendations } from "../lib/api/members";
 import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
-import { authOptions } from "./api/auth/[...nextauth]";
 
 export async function getStaticProps() {
   const teams = await getTeams();
@@ -39,13 +37,13 @@ export async function getStaticProps() {
   const lastMonthCommendations = await getLastMonthCommendations();
   const thisMonthCommendations = await getThisMonthCommendations();
 
-  const sendingMembers = await getMembersWithSentCommendations();
-  const receivingMembers = await getMembersWithReceivedCommendations();
+  const sending = await getMembersWithSentCommendations();
+  const receiving = await getMembersWithReceivedCommendations();
 
-  return { props: { teams, sendingMembers, receivingMembers, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations } };
+  return { props: { teams, sending, receiving, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations } };
 }
 
-export default function Admin({ teams, sendingMembers, receivingMembers, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Admin({ teams, sending, receiving, commendationsReceived, commendationsSent, lastMonthCommendations, thisMonthCommendations }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [viewMode, setViewMode] = useState("square");
   const [sortMode, setSortMode] = useState("atoz");
 
@@ -95,7 +93,7 @@ export default function Admin({ teams, sendingMembers, receivingMembers, commend
         </Box>
         {viewMode === "square" ?
           <AdminSquareView teams={teams} commendationsReceived={commendationsReceived} commendationsSent={commendationsSent} /> :
-          <AdminLeaderboardView receivingUsers={receivingMembers} sendingUsers={sendingMembers} />
+          <AdminLeaderboardView receivingUsers={receiving} sendingUsers={sending} />
         }
         <Box sx={{ position: "fixed", bottom: 0, display: "flex" }}>
           <Card sx={{ marginLeft: 1, marginBottom: 1, fontSize: 20, padding: 1 }}>Commendations sent last month: {lastMonthCommendations}</Card>
