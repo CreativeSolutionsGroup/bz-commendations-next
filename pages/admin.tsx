@@ -6,11 +6,11 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { useState } from "react";
-import AdminLeaderboardView from "../components/AdminLeaderboardView";
-import AdminSquareView from "../components/AdminSquareView";
-import { getMembersWithReceivedCommendations, getMembersWithSentCommendations } from "../lib/api/members";
-import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "../lib/api/teams";
-import { authOptions } from "./api/auth/[...nextauth]";
+import AdminLeaderboardView from "@/components/AdminLeaderboardView";
+import AdminSquareView from "@/components/AdminSquareView";
+import { getMembersWithReceivedCommendations, getMembersWithSentCommendations } from "@/lib/api/members";
+import { getLastMonthCommendations, getTeams, getThisMonthCommendations } from "@/lib/api/teams";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   let session = await getServerSession(context.req, context.res, authOptions);

@@ -4,9 +4,9 @@ import { Raleway } from "@next/font/google";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import Head from "next/head";
-import { readUserCommendations } from "../lib/api/commendations";
-import { authOptions } from "./api/auth/[...nextauth]";
+import { readUserCommendations } from "@/lib/api/commendations";
 import Image from "next/image";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
