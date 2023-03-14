@@ -6,7 +6,6 @@ export default withAuth(
     callbacks: {
       authorized: ({ req, token }) => {
         const { pathname, searchParams } = req.nextUrl;
-        console.log(pathname)
         if (pathname === "/admin") {
           return token?.isAdmin ?? false;
         }

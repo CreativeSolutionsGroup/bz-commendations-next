@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const commendation = await createCommendation(sender as string, recipient, msg);
       send_bz_email(session?.user?.email as string, recipientEmail, session?.user?.name as string, msg);
       send_bz_text(await idToPhoneNumber(recipient), session?.user?.name as string, msg);
-      revalidate(req.headers.host ?? "https://next.bz-cedarville.com", recipientEmail);
+      await revalidate(req.headers.host ?? "https://next.bz-cedarville.com", recipientEmail);
       res.redirect("/");
       break;
   }
