@@ -6,7 +6,6 @@ export default async function handler(
 ) {
   const { urlPath } = req.body;
   res.setHeader("Access-Control-Allow-Origin", "https://next.bz-cedarville.com");
-  res.setHeader("Access-Control-Allow-Methods", "ITEM");
 
   try {
     await res.revalidate(urlPath);
