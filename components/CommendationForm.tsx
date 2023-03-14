@@ -5,7 +5,7 @@ import { Member, Team } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
 import { Raleway } from "@next/font/google";
 import Image from "next/image";
-import bz from "../assets/bz-logo.png"
+import bz from "@/assets/bz-logo.png"
 
 const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 

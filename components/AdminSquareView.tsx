@@ -2,8 +2,8 @@ import { Group, MoveToInbox, Send } from "@mui/icons-material";
 import { Box, Card, Typography } from "@mui/material";
 import { Member, Team } from "@prisma/client";
 import Image from "next/image";
-import solid from "../assets/BZ-letters-solid.png";
-import bz from "../assets/BZ-letters.png";
+import solid from "@/assets/BZ-letters-solid.png";
+import bz from "@/assets/BZ-letters.png";
 
 
 type TeamsList = (Team & {

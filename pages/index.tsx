@@ -3,10 +3,10 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import CommendationForm from "../components/CommendationForm";
-import IndexAbsoluteElements from '../components/IndexAbsoluteElements';
-import { readAllMembers } from '../lib/api/commendations';
-import { authOptions } from './api/auth/[...nextauth]';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { readAllMembers } from '@/lib/api/commendations';
+import CommendationForm from '@/components/CommendationForm';
+import IndexAbsoluteElements from '@/components/IndexAbsoluteElements';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
