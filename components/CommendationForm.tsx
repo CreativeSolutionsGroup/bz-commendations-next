@@ -3,7 +3,6 @@ import { Box } from "@mui/system"
 import { SyntheticEvent, useState } from "react"
 import { Member, Team } from "@prisma/client";
 import SendIcon from "@mui/icons-material/Send"
-import GroupsIcon from '@mui/icons-material/Groups';
 import { Raleway } from "@next/font/google";
 import Image from "next/image";
 import bz from "../assets/bz-logo.png"
@@ -13,18 +12,7 @@ const raleway = Raleway({ subsets: ["latin"], weight: "900" });
 export default ({ members }: { members: Array<Member & { team: Array<Team> }> }) => {
   const [sending, setSending] = useState(false);
   const [memberData, setToMember] = useState("");
-  const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  }
-
-  const handleClose = async (event?: SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-        return;
-    }
-    setOpen(false);
-  }
 
   return (
     <Paper sx={{ mt: 4, mx: "auto", maxWidth: "30rem", p: 2 }}>
@@ -53,19 +41,11 @@ export default ({ members }: { members: Array<Member & { team: Array<Team> }> })
               label="To"
               required />} />
           <TextField required label="Message" variant="filled" name="msg" minRows={8} multiline={true} />
-          <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content" }} onClick={handleClick}>
+          <Button disabled={sending} variant="contained" color="secondary" type="submit" endIcon={<SendIcon />} sx={{ fontSize: 18, textTransform: "uppercase", minWidth: "fit-content" }}>
             Send
           </Button>
         </Stack>
       </form>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ wdith: '100%' }}>
-            Successfully sent!
-        </Alert>
-      </Snackbar>
-      <Fab color="secondary" aria-label="teams" sx={{ position: "absolute", bottom: 16, right: 16 }}>
-        <GroupsIcon />
-      </Fab>
     </Paper>
   )
 }

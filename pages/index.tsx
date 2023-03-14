@@ -1,7 +1,10 @@
+import { Alert, Fab, Snackbar } from '@mui/material';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import CommendationForm from "../components/CommendationForm";
+import IndexAbsoluteElements from '../components/IndexAbsoluteElements';
 import { readAllMembers } from '../lib/api/commendations';
 import { authOptions } from './api/auth/[...nextauth]';
 
@@ -15,6 +18,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Home({ members }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
   return (
     <>
       <Head>
@@ -25,6 +29,8 @@ export default function Home({ members }: InferGetServerSidePropsType<typeof get
       <main>
         <CommendationForm members={members} />
       </main>
+
+      <IndexAbsoluteElements />
     </>
   )
 }
